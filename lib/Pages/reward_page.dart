@@ -10,8 +10,10 @@ class RewardPage extends StatefulWidget {
 class _RewardPageState extends State<RewardPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Reward Page"),
+      )
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon/task_item.dart';
+
 
 class TaskPage extends StatefulWidget {
   const TaskPage({Key? key}) : super(key: key);
@@ -12,13 +14,14 @@ class _TaskPageState extends State<TaskPage> {
   final TextEditingController _textEditingController = TextEditingController();
 
   Widget _buildTaskItem(String str) {
-    ListTile item = ListTile(title: Text(str));
+    TaskItem item = TaskItem(str);
+    ListTile tile = ListTile(title: Text(item.taskTitle));
     setState(() {
-      _taskList.add(item);
+      _taskList.add(tile);
     });
     //TODO: make this work
     _textEditingController.clear; 
-    return item;
+    return tile;
   }
 
   Future<dynamic> _displayDialog(BuildContext context) async {
