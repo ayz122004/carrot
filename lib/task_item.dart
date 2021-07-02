@@ -1,9 +1,9 @@
 class TaskItem {
   bool isCompleted = false;
-  String taskTitle = "";
-  String taskDescription = "";
-  String rewardTitle = "";
-  String rewardDescription = "";
+  String taskTitle = "default";
+  String taskDescription = "default";
+  String rewardTitle = "default";
+  String rewardDescription = "default";
 
   TaskItem(this.taskTitle);
   

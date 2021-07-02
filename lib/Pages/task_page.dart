@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon/Pages/item_page.dart';
 import 'package:hackathon/task_item.dart';
 
 class TaskPage extends StatefulWidget {
@@ -15,18 +16,27 @@ class _TaskPageState extends State<TaskPage> {
   final TextEditingController _textEditingController = TextEditingController();
 
   Widget _buildTaskItem(String str) {
-    TaskItem item = TaskItem(str);
-    ListTile tile = ListTile(
-      title: Text(item.taskTitle),
-      key: ValueKey(str + '$_counter'), //i hope this is right
+    TaskItem _item = TaskItem(str);
+    ListTile _tile = ListTile(
+      title: Text(_item.taskTitle),
     );
+
+    GestureDetector _gd = GestureDetector(
+      onTap: () {
+        _openTask(_item);
+      },
+      child: _tile,
+      key: ValueKey(str + '$_counter'),
+    );
+
     setState(() {
-      _taskList.add(tile);
+      _taskList.add(_gd);
     });
+
     //TODO: make this work
     _textEditingController.clear;
     _counter++;
-    return tile;
+    return _gd;
   }
 
   Future<dynamic> _displayDialog(BuildContext context) async {
@@ -58,12 +68,21 @@ class _TaskPageState extends State<TaskPage> {
         });
   }
 
-  void _updateTaskList(int oldIndex, int newIndex) {
+  void _reorderTaskList(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
     final Widget item = _taskList.removeAt(oldIndex);
     _taskList.insert(newIndex, item);
+  }
+
+  void _openTask(TaskItem item) {
+    //open a page to the specific item
+    print("openTask: ${item.taskTitle}");
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ItemPage(item: item)),
+    );
   }
 
   @override
@@ -75,7 +94,7 @@ class _TaskPageState extends State<TaskPage> {
       body: ReorderableListView(
         onReorder: (oldIndex, newIndex) {
           setState(() {
-            _updateTaskList(oldIndex, newIndex);
+            _reorderTaskList(oldIndex, newIndex);
           });
         },
         children: _taskList,
