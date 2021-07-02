@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon/task_item.dart';
 
-
 class TaskPage extends StatefulWidget {
   const TaskPage({Key? key}) : super(key: key);
 
@@ -10,17 +9,23 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
+  static int _counter = 0;
+
   final List<Widget> _taskList = [];
   final TextEditingController _textEditingController = TextEditingController();
 
   Widget _buildTaskItem(String str) {
     TaskItem item = TaskItem(str);
-    ListTile tile = ListTile(title: Text(item.taskTitle));
+    ListTile tile = ListTile(
+      title: Text(item.taskTitle),
+      key: ValueKey(str + '$_counter'), //i hope this is right
+    );
     setState(() {
       _taskList.add(tile);
     });
     //TODO: make this work
-    _textEditingController.clear; 
+    _textEditingController.clear;
+    _counter++;
     return tile;
   }
 
@@ -53,19 +58,32 @@ class _TaskPageState extends State<TaskPage> {
         });
   }
 
+  void _updateTaskList(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final Widget item = _taskList.removeAt(oldIndex);
+    _taskList.insert(newIndex, item);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Task Page"),
       ),
-      body: ListView(
+      body: ReorderableListView(
+        onReorder: (oldIndex, newIndex) {
+          setState(() {
+            _updateTaskList(oldIndex, newIndex);
+          });
+        },
         children: _taskList,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>  _displayDialog(context),
+          onPressed: () => _displayDialog(context),
           tooltip: 'Add Item',
           child: const Icon(Icons.add)),
-      );
+    );
   }
 }
