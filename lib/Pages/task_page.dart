@@ -77,8 +77,6 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   void _openTask(TaskItem item) {
-    //open a page to the specific item
-    print("openTask: ${item.taskTitle}");
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ItemPage(item: item)),
