@@ -17,10 +17,15 @@ class _TaskPageState extends State<TaskPage> {
 
   void _listener(TaskItem item) {
     int _index = _tiList.indexOf(item);
-    //rebuild GD from TI data
-    _buildTask(_tiList[_index]);
+    //reorder _tiList ONLY - item doesn't need to be reconstructed, change to remove(item) and add(item)?
+    TaskItem _temp = item;
+    _tiList.remove(item);
+    _tiList.add(_temp);
     //remove gd from gdList
     _gdList.remove(_gdList[_index]);
+    //rebuild GD from TI data
+    _buildTask(_tiList[_index]);
+    print(_tiList);
   }
 
   void _addTaskItem(String title) {
@@ -45,7 +50,7 @@ class _TaskPageState extends State<TaskPage> {
     setState(() {
       _gdList.add(_gd);
     });
-     _controller.clear;
+    _controller.clear;
     _counter++;
   }
 
