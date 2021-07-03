@@ -15,57 +15,38 @@ class _TaskPageState extends State<TaskPage> {
   final List<TaskItem> _tiList = [];
   final _controller = TextEditingController();
 
-  void _listener() {
-    
+  void _listener(TaskItem item) {
+    int _index = _tiList.indexOf(item);
+    //rebuild GD from TI data
+    _buildTask(_tiList[_index]);
+    //remove gd from gdList
+    _gdList.remove(_gdList[_index]);
   }
 
   void _addTaskItem(String title) {
+    //add to _tiList
     TaskItem _item = TaskItem(title);
     _tiList.add(_item);
     _item.addListener(() {
-      _listener();
+      _listener(_item);
     });
+    _buildTask(_item);
   }
 
-  // TODO: fix this so title gets updated when edited in ItemPage
-  Widget _buildTaskItem(String title) {
-    
-    ListTile _tile = ListTile(title: Text(_item.getTaskTitle()));
-
+  void _buildTask(TaskItem item) {
+    //add to _gdList
     GestureDetector _gd = GestureDetector(
       onTap: () {
-        _openTask(_item);
+        _openTask(item);
       },
-      child: _tile,
+      child: ListTile(title: Text(item.getTaskTitle())),
       key: ValueKey('$_counter'),
     );
-
     setState(() {
-      _taskList.add(_gd);
+      _gdList.add(_gd);
     });
-     _textEditingController.clear; //TODO: doesn't work
+     _controller.clear;
     _counter++;
-
-    void _listener() {
-      int _index = _taskList.indexOf(_gd);
-      _taskList.remove(_gd);
-      ListTile _newTile = ListTile(title: Text(_item.getTaskTitle()));
-      GestureDetector _newGd = GestureDetector(
-        onTap: () {
-          _openTask(_item);
-        },
-        child: _newTile,
-        key: ValueKey(title + '$_counter'),
-      );
-      setState(() {
-        _taskList.insert(_index, _newGd);
-      });
-      _counter++;
-    }
-
-    _item.addListener(_listener);
-
-    return _gd;
   }
 
   Future<dynamic> _displayDialog(BuildContext context) async {
