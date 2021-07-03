@@ -17,4 +17,10 @@ class TaskItem with ChangeNotifier {
     _taskTitle = title;
     notifyListeners();
   }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return _taskTitle;
+  }
 }

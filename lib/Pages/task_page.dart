@@ -11,49 +11,47 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   static int _counter = 0;
+  final List<GestureDetector> _gdList = [];
+  final List<TaskItem> _tiList = [];
+  final _controller = TextEditingController();
 
-  final List<Widget> _taskList = [];
-  final TextEditingController _textEditingController = TextEditingController();
+  void _listener(TaskItem item) {
+    int _index = _tiList.indexOf(item);
+    //reorder _tiList ONLY - item doesn't need to be reconstructed, change to remove(item) and add(item)?
+    TaskItem _temp = item;
+    _tiList.remove(item);
+    _tiList.add(_temp);
+    //remove gd from gdList
+    _gdList.remove(_gdList[_index]);
+    //rebuild GD from TI data
+    _buildTask(_tiList[_index]);
+    print(_tiList);
+  }
 
-  // TODO: fix this so title gets updated when edited in ItemPage
-  Widget _buildTaskItem(String title) {
+  void _addTaskItem(String title) {
+    //add to _tiList
     TaskItem _item = TaskItem(title);
-    ListTile _tile = ListTile(title: Text(_item.getTaskTitle()));
+    _tiList.add(_item);
+    _item.addListener(() {
+      _listener(_item);
+    });
+    _buildTask(_item);
+  }
 
+  void _buildTask(TaskItem item) {
+    //add to _gdList
     GestureDetector _gd = GestureDetector(
       onTap: () {
-        _openTask(_item);
+        _openTask(item);
       },
-      child: _tile,
+      child: ListTile(title: Text(item.getTaskTitle())),
       key: ValueKey('$_counter'),
     );
-
     setState(() {
-      _taskList.add(_gd);
+      _gdList.add(_gd);
     });
-     _textEditingController.clear; //TODO: doesn't work
+    _controller.clear;
     _counter++;
-
-    void _listener() {
-      int _index = _taskList.indexOf(_gd);
-      _taskList.remove(_gd);
-      ListTile _newTile = ListTile(title: Text(_item.getTaskTitle()));
-      GestureDetector _newGd = GestureDetector(
-        onTap: () {
-          _openTask(_item);
-        },
-        child: _newTile,
-        key: ValueKey(title + '$_counter'),
-      );
-      setState(() {
-        _taskList.insert(_index, _newGd);
-      });
-      _counter++;
-    }
-
-    _item.addListener(_listener);
-
-    return _gd;
   }
 
   Future<dynamic> _displayDialog(BuildContext context) async {
@@ -63,7 +61,7 @@ class _TaskPageState extends State<TaskPage> {
           return AlertDialog(
             title: const Text("Add a new task"),
             content: TextField(
-              controller: _textEditingController,
+              controller: _controller,
               decoration: const InputDecoration(hintText: "Enter task"),
             ),
             actions: <Widget>[
@@ -71,7 +69,7 @@ class _TaskPageState extends State<TaskPage> {
                 child: const Text("ADD"),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  _buildTaskItem(_textEditingController.text);
+                  _addTaskItem(_controller.text); //TODO: change
                 },
               ),
               TextButton(
@@ -89,8 +87,10 @@ class _TaskPageState extends State<TaskPage> {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    final Widget item = _taskList.removeAt(oldIndex);
-    _taskList.insert(newIndex, item);
+    final GestureDetector gd = _gdList.removeAt(oldIndex);
+    _gdList.insert(newIndex, gd);
+    final TaskItem ti = _tiList.removeAt(oldIndex);
+    _tiList.insert(newIndex, ti);
   }
 
   void _openTask(TaskItem item) {
@@ -112,7 +112,7 @@ class _TaskPageState extends State<TaskPage> {
             _reorderTaskList(oldIndex, newIndex);
           });
         },
-        children: _taskList,
+        children: _gdList,
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayDialog(context),
