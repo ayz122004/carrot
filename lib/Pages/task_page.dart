@@ -17,14 +17,15 @@ class _TaskPageState extends State<TaskPage> {
 
   void _listener(TaskItem item) {
     int _index = _tiList.indexOf(item);
-    //reorder _tiList ONLY - item doesn't need to be reconstructed, change to remove(item) and add(item)?
-    TaskItem _temp = item;
-    _tiList.remove(item);
-    _tiList.add(_temp);
     //remove gd from gdList
     _gdList.remove(_gdList[_index]);
     //rebuild GD from TI data
     _buildTask(_tiList[_index]);
+    //reorder _tiList
+    TaskItem _temp = item;
+    _tiList.remove(item);
+    _tiList.add(_temp);
+
     print(_tiList);
   }
 
@@ -36,6 +37,7 @@ class _TaskPageState extends State<TaskPage> {
       _listener(_item);
     });
     _buildTask(_item);
+    _controller.clear;
   }
 
   void _buildTask(TaskItem item) {
@@ -69,7 +71,8 @@ class _TaskPageState extends State<TaskPage> {
                 child: const Text("ADD"),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  _addTaskItem(_controller.text); //TODO: change
+                  _controller.clear;
+                  _addTaskItem(_controller.text);
                 },
               ),
               TextButton(
