@@ -42,7 +42,7 @@ class _TaskPageState extends State<TaskPage> {
     _controller.clear;
   }
 
-  Future<dynamic> _displayDialog(BuildContext context) async {
+  Future<dynamic> _createDialog(BuildContext context) async {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -136,7 +136,7 @@ class _TaskPageState extends State<TaskPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => _displayDialog(context),
+          onPressed: () => _createDialog(context),
           tooltip: 'Add Item',
           child: const Icon(Icons.add)),
     );

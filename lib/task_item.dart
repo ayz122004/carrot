@@ -10,6 +10,7 @@ class TaskItem with ChangeNotifier {
   DateTime _startBy = DateTime.now();
   DateTime _endBy = DateTime.now();
   Duration _timeSpent = Duration(hours: 0, minutes: 0);
+  late DateTime _completionDate;
 
   TaskItem(this._taskTitle);
 
@@ -59,6 +60,11 @@ class TaskItem with ChangeNotifier {
   void addTimeSpent(Duration time) {
     _timeSpent += time;
     notifyListeners();
+  }
+
+  DateTime getCompletionDate() => _completionDate;
+  void setCompletionDate(DateTime date) {
+    _completionDate = date;
   }
 
   void plsUpdate() {

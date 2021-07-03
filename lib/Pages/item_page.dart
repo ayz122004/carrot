@@ -59,6 +59,7 @@ class _ItemPageState extends State<ItemPage> {
           )
         ],
       ),
+      //TODO: @ANGELINA customize based on completion status
       body: Column(
         children: [
           Padding(
