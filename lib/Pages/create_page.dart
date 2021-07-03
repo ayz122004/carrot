@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:hackathon/task_item.dart';
+import 'package:hackathon/data.dart';
+
 class CreatePage extends StatelessWidget {
   CreatePage({Key? key}) : super(key: key);
 
@@ -13,12 +16,26 @@ class CreatePage extends StatelessWidget {
   String _rt = "";
   String _rd = "";
 
-  void _addTaskItem() {
-    //make new TaskItem object
-  }
-
   @override
   Widget build(BuildContext context) {
+    final myData = context.watch<MyData>();
+
+    void _listener(TaskItem item) {
+      int _index = myData.tiList.indexOf(item);
+      TaskItem _temp = item;
+      myData.tiList.remove(item);
+      myData.tiList.insert(_index, _temp);
+    }
+
+    void _addTaskItem(String title) {
+      TaskItem _item = TaskItem(title);
+      myData.addItem(_item);
+      _item.addListener(() {
+        _listener(_item);
+      });
+      Navigator.of(context).pop();
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Create Task Item"),
@@ -56,7 +73,7 @@ class CreatePage extends StatelessWidget {
             Row(
               children: [
                 TextButton(
-                  onPressed: _addTaskItem,
+                  onPressed: () => _addTaskItem(_tt),
                   child: const Text("ADD"),
                 ),
                 TextButton(

@@ -25,7 +25,7 @@ class _RewardPageState extends State<RewardPage> {
     final myData = context.watch<MyData>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Task Page"),
+        title: const Text("Reward Page"),
       ),
       body: ListView(
         children: <Widget>[

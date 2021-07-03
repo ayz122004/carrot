@@ -14,61 +14,37 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  final _controller = TextEditingController();
+  // final _controller = TextEditingController();  
 
-  void _listener(TaskItem item) {
-    int _index =
-        Provider.of<MyData>(context, listen: false).tiList.indexOf(item);
-
-    TaskItem _temp = item;
-    Provider.of<MyData>(context, listen: false).tiList.remove(item);
-    setState(() {
-      Provider.of<MyData>(context, listen: false).tiList.insert(_index, _temp);
-    });
-  }
-
-  void _addTaskItem(String title) {
-    //add to _taskItemList
-    TaskItem _item = TaskItem(title);
-    setState(() {
-      // _taskItemList.add(_item);
-      Provider.of<MyData>(context, listen: false).tiList.add(_item);
-    });
-    _item.addListener(() {
-      _listener(_item);
-    });
-    _controller.clear;
-  }
-
-  Future<dynamic> _createDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Add a new task"),
-            content: TextField(
-              controller: _controller,
-              decoration: const InputDecoration(hintText: "Enter task"),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text("ADD"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  _controller.clear;
-                  _addTaskItem(_controller.text);
-                },
-              ),
-              TextButton(
-                child: const Text("CANCEL"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
-  }
+  // Future<dynamic> _createDialog(BuildContext context) async {
+  //   return showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: const Text("Add a new task"),
+  //           content: TextField(
+  //             controller: _controller,
+  //             decoration: const InputDecoration(hintText: "Enter task"),
+  //           ),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               child: const Text("ADD"),
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //                 _controller.clear;
+  //                 _addTaskItem(_controller.text);
+  //               },
+  //             ),
+  //             TextButton(
+  //               child: const Text("CANCEL"),
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 
   void _reorderTaskList(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
