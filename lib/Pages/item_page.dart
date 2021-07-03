@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 import 'package:hackathon/task_item.dart';
 import 'package:hackathon/data.dart';
@@ -18,9 +19,11 @@ class _ItemPageState extends State<ItemPage> {
   late TextEditingController _taskDescController;
   late TextEditingController _rewardTitleController;
   late TextEditingController _rewardDescController;
+  late TextEditingController _startByController;
+  late TextEditingController _endByController;
 
   void _deleteItem() {
-    //TODO: add changeNotifier here - list doesn't update until listener is triggered
+    //TODO: add changeNotifier to tiList - list doesn't update until listener is triggered
     Provider.of<MyData>(context, listen: false).tiList.remove(widget.item);
     Provider.of<MyData>(context, listen: false).tiList[0].plsUpdate(); //h4ck3r
     Fluttertoast.showToast(msg: "task deleted!");
@@ -34,9 +37,13 @@ class _ItemPageState extends State<ItemPage> {
     _taskDescController =
         TextEditingController(text: widget.item.getTaskDesc());
     _rewardTitleController =
-        TextEditingController(text: widget.item.rewardTitle);
+        TextEditingController(text: widget.item.getRewardTitle());
     _rewardDescController =
-        TextEditingController(text: widget.item.rewardDescription);
+        TextEditingController(text: widget.item.getRewardDesc());
+    _startByController =
+        TextEditingController(text: widget.item.getStartBy().toString());
+    _endByController =
+        TextEditingController(text: widget.item.getEndBy().toIso8601String());
 
     return Scaffold(
       appBar: AppBar(
@@ -94,9 +101,10 @@ class _ItemPageState extends State<ItemPage> {
                 width: 256,
                 child: TextField(
                   controller: _rewardTitleController,
+                  readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
                     setState(() {
-                      widget.item.rewardTitle = _rewardTitleController.text;
+                      widget.item.setRewardTitle(_rewardTitleController.text);
                     });
                   },
                 ),
@@ -110,10 +118,44 @@ class _ItemPageState extends State<ItemPage> {
                 width: 256,
                 child: TextField(
                   controller: _rewardDescController,
+                  readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
                     setState(() {
-                      widget.item.rewardDescription =
-                          _rewardDescController.text;
+                      widget.item.setRewardDesc(_rewardDescController.text);
+                    });
+                  },
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              const Text("start by: "),
+              SizedBox(
+                width: 256,
+                child: TextField(
+                  controller: _startByController,
+                  readOnly: widget.item.getIsComplete(),
+                  onSubmitted: (value) {
+                    setState(() {
+                      widget.item.setStartBy(DateTime.parse(_startByController.text));
+                    });
+                  },
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              const Text("end by: "),
+              SizedBox(
+                width: 256,
+                child: TextField(
+                  controller: _endByController,
+                  readOnly: widget.item.getIsComplete(),
+                  onSubmitted: (value) {
+                    setState(() {
+                      widget.item.setEndBy(DateTime.parse(_endByController.text));
                     });
                   },
                 ),

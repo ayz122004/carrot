@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TaskItem with ChangeNotifier {
   bool _isComplete = false;
-  String _taskTitle = "default";
-  String _taskDescription = "default";
-  String rewardTitle = "default";
-  String rewardDescription = "default";
+  String _taskTitle = "";
+  String _taskDescription = "";
+  String _rewardTitle = "";
+  String _rewardDescription = "";
+  DateTime _startBy = DateTime.now();
+  DateTime _endBy = DateTime.now();
 
   TaskItem(this._taskTitle);
 
   String getTaskTitle() => _taskTitle;
-
   void setTaskTitle(String title) {
     _taskTitle = title;
     notifyListeners();
@@ -25,6 +27,30 @@ class TaskItem with ChangeNotifier {
   bool getIsComplete() => _isComplete;
   void setIsComplete() {
     _isComplete = true;
+    notifyListeners();
+  }
+
+  String getRewardTitle() => _rewardTitle;
+  void setRewardTitle(String title) {
+    _rewardTitle = title;
+    notifyListeners();
+  }
+
+  String getRewardDesc() => _rewardDescription;
+  void setRewardDesc(String description) {
+    _rewardDescription = description;
+    notifyListeners();
+  }
+
+  DateTime getStartBy() => _startBy;
+  void setStartBy(DateTime time) {
+    _startBy = time;
+    notifyListeners();
+  }
+
+  DateTime getEndBy() => _endBy;
+  void setEndBy(DateTime time) {
+    _endBy = time;
     notifyListeners();
   }
 
