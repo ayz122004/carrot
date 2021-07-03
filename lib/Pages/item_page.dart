@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:hackathon/task_item.dart';
+import 'package:hackathon/data.dart';
 
 class ItemPage extends StatefulWidget {
   final TaskItem item;
@@ -14,6 +18,14 @@ class _ItemPageState extends State<ItemPage> {
   late TextEditingController _taskDescController;
   late TextEditingController _rewardTitleController;
   late TextEditingController _rewardDescController;
+
+  void _deleteItem() {
+    //TODO: add changeNotifier here - list doesn't update until listener is triggered
+    Provider.of<MyData>(context, listen: false).tiList.remove(widget.item);
+    Provider.of<MyData>(context, listen: false).tiList[0].plsUpdate(); //h4ck3r
+    Fluttertoast.showToast(msg: "task deleted!");
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +59,7 @@ class _ItemPageState extends State<ItemPage> {
                   width: 256,
                   child: TextField(
                     controller: _taskTitleController,
+                    readOnly: widget.item.getIsComplete(),
                     onSubmitted: (value) {
                       setState(() {
                         widget.item.setTaskTitle(_taskTitleController.text);
@@ -64,6 +77,7 @@ class _ItemPageState extends State<ItemPage> {
                 width: 256,
                 child: TextField(
                   controller: _taskDescController,
+                  readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
                     setState(() {
                       widget.item.setTaskDesc(_taskDescController.text);
@@ -108,8 +122,18 @@ class _ItemPageState extends State<ItemPage> {
           ),
           Row(
             children: [
-              Text("complete: ${widget.item.isCompleted}"),
+              Text("complete: ${widget.item.getIsComplete()}"),
             ],
+          ),
+          TextButton(
+            child: const Text(
+              "Delete",
+              //TODO: set color based on getIsComplete()
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: () {
+              widget.item.getIsComplete() ? null : _deleteItem();
+            },
           ),
         ],
       ),
