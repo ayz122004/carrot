@@ -13,7 +13,7 @@ class ItemPage extends StatefulWidget {
   _ItemPageState createState() => _ItemPageState();
 }
 
-class _ItemPageState extends State<ItemPage>{
+class _ItemPageState extends State<ItemPage> {
   late TextEditingController _taskTitleController;
   late TextEditingController _taskDescController;
   late TextEditingController _rewardTitleController;
@@ -59,6 +59,7 @@ class _ItemPageState extends State<ItemPage>{
                   width: 256,
                   child: TextField(
                     controller: _taskTitleController,
+                    readOnly: widget.item.getIsComplete(),
                     onSubmitted: (value) {
                       setState(() {
                         widget.item.setTaskTitle(_taskTitleController.text);
@@ -76,6 +77,7 @@ class _ItemPageState extends State<ItemPage>{
                 width: 256,
                 child: TextField(
                   controller: _taskDescController,
+                  readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
                     setState(() {
                       widget.item.setTaskDesc(_taskDescController.text);
@@ -124,8 +126,14 @@ class _ItemPageState extends State<ItemPage>{
             ],
           ),
           TextButton(
-            child: const Text("Delete", style: TextStyle(color: Colors.red)),
-            onPressed: _deleteItem,
+            child: const Text(
+              "Delete",
+              //TODO: set color based on getIsComplete()
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: () {
+              widget.item.getIsComplete() ? null : _deleteItem();
+            },
           ),
         ],
       ),
