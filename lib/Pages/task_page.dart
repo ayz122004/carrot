@@ -10,59 +10,37 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  static int _counter = 0;
-  final List<GestureDetector> _gdList = [];
-  final List<TaskItem> _tiList = [];
+  final List<TaskItem> _taskItemList = [];
   final _controller = TextEditingController();
 
   void _listener(TaskItem item) {
-    int _index = _tiList.indexOf(item);
+    int _index = _taskItemList.indexOf(item);
     // //remove gd from gdList
     // _gdList.remove(_gdList[_index]);
     // //rebuild GD from TI data
-    // _buildTask(_tiList[_index]);
+    // _buildTask(_taskItemList[_index]);
 
-    //reorder _tiList
+    //reorder _taskItemList
     TaskItem _temp = item;
-    _tiList.remove(item);
+    _taskItemList.remove(item);
     setState(() {
-      _tiList.insert(_index, _temp);
+      _taskItemList.insert(_index, _temp);
     });
 
-    print(_tiList);
+    print(_taskItemList);
   }
 
   void _addTaskItem(String title) {
-    //add to _tiList
+    //add to _taskItemList
     TaskItem _item = TaskItem(title);
     setState(() {
-      _tiList.add(_item);
+      _taskItemList.add(_item);
     });
     _item.addListener(() {
       _listener(_item);
     });
-    //_buildTask(_item);
     _controller.clear;
   }
-
-  // void _buildTask(TaskItem item) {
-  //   //add to _gdList
-  //   GestureDetector _gd = GestureDetector(
-  //     onTap: () {
-  //       _openTask(item);
-  //     },
-  //     child: ListTile(
-  //       title: Text(item.getTaskTitle()),
-  //       subtitle: Text(item.getTaskDesc()),
-  //     ),
-  //     key: ValueKey('$_counter'),
-  //   );
-  //   setState(() {
-  //     _gdList.add(_gd);
-  //   });
-  //   _controller.clear;
-  //   _counter++;
-  // }
 
   Future<dynamic> _displayDialog(BuildContext context) async {
     return showDialog(
@@ -98,10 +76,8 @@ class _TaskPageState extends State<TaskPage> {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    final GestureDetector gd = _gdList.removeAt(oldIndex);
-    _gdList.insert(newIndex, gd);
-    final TaskItem ti = _tiList.removeAt(oldIndex);
-    _tiList.insert(newIndex, ti);
+    final TaskItem item = _taskItemList.removeAt(oldIndex);
+    _taskItemList.insert(newIndex, item);
   }
 
   void _openTask(TaskItem item) {
@@ -119,14 +95,14 @@ class _TaskPageState extends State<TaskPage> {
       ),
       body: ReorderableListView(
         children: <Widget>[
-          for (int index = 0; index < _tiList.length; index++)
+          for (int index = 0; index < _taskItemList.length; index++)
             GestureDetector(
               key: Key('$index'),
               onTap: () {
-                _openTask(_tiList[index]);
+                _openTask(_taskItemList[index]);
               },
               child: ListTile(
-                title: Text(_tiList[index].getTaskTitle()),
+                title: Text(_taskItemList[index].getTaskTitle()),
               ),
             ),
         ],
