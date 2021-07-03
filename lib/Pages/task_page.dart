@@ -120,12 +120,12 @@ class _TaskPageState extends State<TaskPage> {
                       .tiList[index]);
                 },
                 child: ListTile(
-                  title: Text(Provider.of<MyData>(context, listen: false)
+                  title: Text("Task: ${Provider.of<MyData>(context, listen: false)
                       .tiList[index]
-                      .getTaskTitle()),
-                  subtitle: Text(Provider.of<MyData>(context, listen: false)
+                      .getTaskTitle()}"),
+                  subtitle: Text("Description: ${Provider.of<MyData>(context, listen: false)
                       .tiList[index]
-                      .getTaskDesc()),
+                      .getTaskDesc()}"),
                 ),
               ),
         ],

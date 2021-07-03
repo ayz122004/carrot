@@ -83,7 +83,7 @@ class _RewardPageState extends State<RewardPage> {
       appBar: AppBar(
         title: const Text("Task Page"),
       ),
-      body: ReorderableListView(
+      body: ListView(
         children: <Widget>[
           for (int index = 0;
               index < Provider.of<MyData>(context, listen: false).tiList.length;
@@ -92,7 +92,6 @@ class _RewardPageState extends State<RewardPage> {
                 .tiList[index]
                 .getIsComplete())
               GestureDetector(
-                key: Key('$index'),
                 onTap: () {
                   _openTask(Provider.of<MyData>(context, listen: false)
                       .tiList[index]);
@@ -102,20 +101,16 @@ class _RewardPageState extends State<RewardPage> {
                       .tiList[index]);
                 },
                 child: ListTile(
-                  title: Text(Provider.of<MyData>(context, listen: false)
+                  title: Text("Reward: ${Provider.of<MyData>(context, listen: false)
                       .tiList[index]
-                      .getTaskTitle()),
-                  subtitle: Text(Provider.of<MyData>(context, listen: false)
+                      .getRewardTitle()}"),
+                  subtitle: Text("Description: ${Provider.of<MyData>(context, listen: false)
                       .tiList[index]
-                      .getTaskDesc()),
+                      .getRewardDesc()}"),
                 ),
               ),
         ],
-        onReorder: (oldIndex, newIndex) {
-          setState(() {
-            _reorderTaskList(oldIndex, newIndex);
-          });
-        },
+        
       ),
     );
   }
