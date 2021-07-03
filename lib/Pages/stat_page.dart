@@ -14,9 +14,7 @@ class _StatPageState extends State<StatPage> {
       appBar: AppBar(
         title: const Text("Stats Page"),
       ),
-      body: Container(
-        child: Text("under construction"),
-      ),
+      body: const Text("under construction"),
     );
   }
 }

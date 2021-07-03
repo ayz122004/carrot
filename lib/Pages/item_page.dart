@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 
 import 'package:hackathon/task_item.dart';
 import 'package:hackathon/data.dart';
@@ -25,9 +24,7 @@ class _ItemPageState extends State<ItemPage> {
   late TextEditingController _minutesController;
 
   void _deleteItem() {
-    //TODO: add changeNotifier to tiList - list doesn't update until listener is triggered
     Provider.of<MyData>(context, listen: false).tiList.remove(widget.item);
-    Provider.of<MyData>(context, listen: false).tiList[0].plsUpdate(); //h4ck3r
     Fluttertoast.showToast(msg: "task deleted!");
     Navigator.of(context).pop();
   }
@@ -52,12 +49,6 @@ class _ItemPageState extends State<ItemPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Item Page"),
-        actions: const [
-          IconButton(
-            onPressed: null, //edit item
-            icon: Icon(Icons.edit),
-          )
-        ],
       ),
       //TODO: @ANGELINA customize based on completion status
       body: Column(

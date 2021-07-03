@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hackathon/Pages/item_page.dart';
@@ -17,7 +16,6 @@ class _TaskPageState extends State<TaskPage> {
   final _controller = TextEditingController();
 
   void _listener(TaskItem item) {
-    Provider.of<MyData>(context, listen: false).onChange();
     int _index =
         Provider.of<MyData>(context, listen: false).tiList.indexOf(item);
 
@@ -26,8 +24,6 @@ class _TaskPageState extends State<TaskPage> {
     setState(() {
       Provider.of<MyData>(context, listen: false).tiList.insert(_index, _temp);
     });
-
-    print(Provider.of<MyData>(context, listen: false).tiList);
   }
 
   void _addTaskItem(String title) {
@@ -106,7 +102,6 @@ class _TaskPageState extends State<TaskPage> {
                   _openTask(myData.tiList[index]);
                 },
                 onHorizontalDragUpdate: (details) {
-                  myData.onChange();
                   myData.completeItem(myData.tiList[index]);
                 },
                 child: ListTile(
