@@ -21,6 +21,8 @@ class _ItemPageState extends State<ItemPage> {
   late TextEditingController _rewardDescController;
   late TextEditingController _startByController;
   late TextEditingController _endByController;
+  late TextEditingController _hoursController;
+  late TextEditingController _minutesController;
 
   void _deleteItem() {
     //TODO: add changeNotifier to tiList - list doesn't update until listener is triggered
@@ -44,9 +46,8 @@ class _ItemPageState extends State<ItemPage> {
         TextEditingController(text: widget.item.getStartBy().toString());
     _endByController =
         TextEditingController(text: widget.item.getEndBy().toIso8601String());
-    final _hoursController = TextEditingController();
-    final _minutesController = TextEditingController();
-
+    _hoursController = TextEditingController(text: (widget.item.getTimeSpent().inMinutes/60.round()).toString());
+    _minutesController = TextEditingController(text: (widget.item.getTimeSpent().inMinutes%60).toString());
     return Scaffold(
       appBar: AppBar(
         title: const Text("Item Page"),
@@ -202,7 +203,7 @@ class _ItemPageState extends State<ItemPage> {
           TextButton(
             child: const Text(
               "Delete",
-              //TODO: set color based on getIsComplete()
+              //TODO: @ANNA set color based on getIsComplete()
               style: TextStyle(color: Colors.red),
             ),
             onPressed: () {
