@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon/Pages/item_page.dart';
 import 'package:hackathon/task_item.dart';
+import 'package:provider/provider.dart';
+import 'package:hackathon/data.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({Key? key}) : super(key: key);
@@ -10,31 +12,26 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  final List<TaskItem> _taskItemList = [];
   final _controller = TextEditingController();
 
   void _listener(TaskItem item) {
-    int _index = _taskItemList.indexOf(item);
-    // //remove gd from gdList
-    // _gdList.remove(_gdList[_index]);
-    // //rebuild GD from TI data
-    // _buildTask(_taskItemList[_index]);
-
-    //reorder _taskItemList
+    int _index = Provider.of<MyData>(context, listen: false).tiList.indexOf(item);
+    
     TaskItem _temp = item;
-    _taskItemList.remove(item);
+    Provider.of<MyData>(context, listen: false).tiList.remove(item);
     setState(() {
-      _taskItemList.insert(_index, _temp);
+      Provider.of<MyData>(context, listen: false).tiList.insert(_index, _temp);
     });
 
-    print(_taskItemList);
+    print(Provider.of<MyData>(context, listen: false).tiList);
   }
 
   void _addTaskItem(String title) {
     //add to _taskItemList
     TaskItem _item = TaskItem(title);
     setState(() {
-      _taskItemList.add(_item);
+      // _taskItemList.add(_item);
+      Provider.of<MyData>(context, listen: false).tiList.add(_item);
     });
     _item.addListener(() {
       _listener(_item);
@@ -76,8 +73,8 @@ class _TaskPageState extends State<TaskPage> {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    final TaskItem item = _taskItemList.removeAt(oldIndex);
-    _taskItemList.insert(newIndex, item);
+    final TaskItem item = Provider.of<MyData>(context, listen: false).tiList.removeAt(oldIndex);
+    Provider.of<MyData>(context, listen: false).tiList.insert(newIndex, item);
   }
 
   void _openTask(TaskItem item) {
@@ -95,14 +92,14 @@ class _TaskPageState extends State<TaskPage> {
       ),
       body: ReorderableListView(
         children: <Widget>[
-          for (int index = 0; index < _taskItemList.length; index++)
+          for (int index = 0; index < Provider.of<MyData>(context, listen: false).tiList.length; index++)
             GestureDetector(
               key: Key('$index'),
               onTap: () {
-                _openTask(_taskItemList[index]);
+                _openTask(Provider.of<MyData>(context, listen: false).tiList[index]);
               },
               child: ListTile(
-                title: Text(_taskItemList[index].getTaskTitle()),
+                title: Text(Provider.of<MyData>(context, listen: false).tiList[index].getTaskTitle()),
               ),
             ),
         ],

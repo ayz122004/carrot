@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon/home.dart';
+import 'package:hackathon/data.dart';
+import 'package:hackathon/task_item.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    Provider(
+      create: (_) => MyData(tiList: <TaskItem>[]),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
