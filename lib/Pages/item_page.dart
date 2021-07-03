@@ -48,6 +48,7 @@ class _ItemPageState extends State<ItemPage> {
         TextEditingController(text: widget.item.getEndBy().toIso8601String());
     _hoursController = TextEditingController(text: (widget.item.getTimeSpent().inMinutes/60.round()).toString());
     _minutesController = TextEditingController(text: (widget.item.getTimeSpent().inMinutes%60).toString());
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Item Page"),
