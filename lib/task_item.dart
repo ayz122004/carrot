@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TaskItem with ChangeNotifier {
-  bool isCompleted = false;
+  bool _isComplete = false;
   String _taskTitle = "default";
   String _taskDescription = "default";
   String rewardTitle = "default";
@@ -19,6 +19,12 @@ class TaskItem with ChangeNotifier {
   String getTaskDesc() => _taskDescription;
   void setTaskDesc(String description) {
     _taskDescription = description;
+    notifyListeners();
+  }
+
+  bool getIsComplete() => _isComplete;
+  void setIsComplete() {
+    _isComplete = true;
     notifyListeners();
   }
 

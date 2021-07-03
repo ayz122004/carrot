@@ -15,8 +15,9 @@ class _TaskPageState extends State<TaskPage> {
   final _controller = TextEditingController();
 
   void _listener(TaskItem item) {
-    int _index = Provider.of<MyData>(context, listen: false).tiList.indexOf(item);
-    
+    int _index =
+        Provider.of<MyData>(context, listen: false).tiList.indexOf(item);
+
     TaskItem _temp = item;
     Provider.of<MyData>(context, listen: false).tiList.remove(item);
     setState(() {
@@ -73,7 +74,8 @@ class _TaskPageState extends State<TaskPage> {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    final TaskItem item = Provider.of<MyData>(context, listen: false).tiList.removeAt(oldIndex);
+    final TaskItem item =
+        Provider.of<MyData>(context, listen: false).tiList.removeAt(oldIndex);
     Provider.of<MyData>(context, listen: false).tiList.insert(newIndex, item);
   }
 
@@ -84,6 +86,11 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
+  void _completeTask(TaskItem item) {
+    //TODO: what to do with completed tasks?
+    item.setIsComplete();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,17 +99,32 @@ class _TaskPageState extends State<TaskPage> {
       ),
       body: ReorderableListView(
         children: <Widget>[
-          for (int index = 0; index < Provider.of<MyData>(context, listen: false).tiList.length; index++)
-            GestureDetector(
-              key: Key('$index'),
-              onTap: () {
-                _openTask(Provider.of<MyData>(context, listen: false).tiList[index]);
-              },
-              child: ListTile(
-                title: Text(Provider.of<MyData>(context, listen: false).tiList[index].getTaskTitle()),
-                subtitle: Text(Provider.of<MyData>(context, listen: false).tiList[index].getTaskDesc()),
+          for (int index = 0;
+              index < Provider.of<MyData>(context, listen: false).tiList.length;
+              index++)
+            if (Provider.of<MyData>(context, listen: false)
+                    .tiList[index]
+                    .getIsComplete() ==
+                false)
+              GestureDetector(
+                key: Key('$index'),
+                onTap: () {
+                  _openTask(Provider.of<MyData>(context, listen: false)
+                      .tiList[index]);
+                },
+                onHorizontalDragUpdate: (details) {
+                  _completeTask(Provider.of<MyData>(context, listen: false)
+                      .tiList[index]);
+                },
+                child: ListTile(
+                  title: Text(Provider.of<MyData>(context, listen: false)
+                      .tiList[index]
+                      .getTaskTitle()),
+                  subtitle: Text(Provider.of<MyData>(context, listen: false)
+                      .tiList[index]
+                      .getTaskDesc()),
+                ),
               ),
-            ),
         ],
         onReorder: (oldIndex, newIndex) {
           setState(() {

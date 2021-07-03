@@ -117,7 +117,7 @@ class _ItemPageState extends State<ItemPage>{
           ),
           Row(
             children: [
-              Text("complete: ${widget.item.isCompleted}"),
+              Text("complete: ${widget.item.getIsComplete()}"),
             ],
           ),
           TextButton(
