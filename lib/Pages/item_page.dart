@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon/task_item.dart';
+import 'package:provider/provider.dart';
+import 'package:hackathon/data.dart';
 
 class ItemPage extends StatefulWidget {
   final TaskItem item;
@@ -9,11 +11,18 @@ class ItemPage extends StatefulWidget {
   _ItemPageState createState() => _ItemPageState();
 }
 
-class _ItemPageState extends State<ItemPage> {
+class _ItemPageState extends State<ItemPage>{
   late TextEditingController _taskTitleController;
   late TextEditingController _taskDescController;
   late TextEditingController _rewardTitleController;
   late TextEditingController _rewardDescController;
+
+  void _deleteItem() {
+    //TODO: add changeNotifier here - list doesn't update until listener is triggered
+    Provider.of<MyData>(context, listen: false).tiList.remove(widget.item);
+    Provider.of<MyData>(context, listen: false).tiList[0].plsUpdate(); //h4ck3r
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +119,10 @@ class _ItemPageState extends State<ItemPage> {
             children: [
               Text("complete: ${widget.item.isCompleted}"),
             ],
+          ),
+          TextButton(
+            child: const Text("Delete", style: TextStyle(color: Colors.red)),
+            onPressed: _deleteItem,
           ),
         ],
       ),

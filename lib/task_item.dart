@@ -22,6 +22,10 @@ class TaskItem with ChangeNotifier {
     notifyListeners();
   }
 
+  void plsUpdate() {
+    notifyListeners();
+  }
+
   @override
   String toString() {
     return _taskTitle;

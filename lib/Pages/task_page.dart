@@ -100,6 +100,7 @@ class _TaskPageState extends State<TaskPage> {
               },
               child: ListTile(
                 title: Text(Provider.of<MyData>(context, listen: false).tiList[index].getTaskTitle()),
+                subtitle: Text(Provider.of<MyData>(context, listen: false).tiList[index].getTaskDesc()),
               ),
             ),
         ],
