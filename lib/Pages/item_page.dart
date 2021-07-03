@@ -44,6 +44,8 @@ class _ItemPageState extends State<ItemPage> {
         TextEditingController(text: widget.item.getStartBy().toString());
     _endByController =
         TextEditingController(text: widget.item.getEndBy().toIso8601String());
+    final _hoursController = TextEditingController();
+    final _minutesController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -165,6 +167,36 @@ class _ItemPageState extends State<ItemPage> {
           Row(
             children: [
               Text("complete: ${widget.item.getIsComplete()}"),
+            ],
+          ),
+          Row(
+            children: [
+              const Text("Hours: "),
+              SizedBox(
+                width: 128,
+                child: TextField(
+                  controller: _hoursController,
+                  readOnly: !widget.item.getIsComplete(),
+                  onSubmitted: (value) {
+                    setState(() {
+                      widget.item.addTimeSpent(Duration(hours: int.parse(_hoursController.text)));
+                    });
+                  },
+                ),
+              ),
+              const Text("Minutes: "),
+              SizedBox(
+                width: 128,
+                child: TextField(
+                  controller: _minutesController,
+                  readOnly: !widget.item.getIsComplete(),
+                  onSubmitted: (value) {
+                    setState(() {
+                      widget.item.addTimeSpent(Duration(minutes: int.parse(_minutesController.text)));
+                    });
+                  },
+                ),
+              ),
             ],
           ),
           TextButton(

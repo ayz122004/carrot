@@ -9,6 +9,7 @@ class TaskItem with ChangeNotifier {
   String _rewardDescription = "";
   DateTime _startBy = DateTime.now();
   DateTime _endBy = DateTime.now();
+  Duration _timeSpent = Duration(hours: 0, minutes: 0);
 
   TaskItem(this._taskTitle);
 
@@ -51,6 +52,11 @@ class TaskItem with ChangeNotifier {
   DateTime getEndBy() => _endBy;
   void setEndBy(DateTime time) {
     _endBy = time;
+    notifyListeners();
+  }
+
+  void addTimeSpent(Duration time) {
+    _timeSpent += time;
     notifyListeners();
   }
 
