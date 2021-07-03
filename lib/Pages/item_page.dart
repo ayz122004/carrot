@@ -39,9 +39,14 @@ class _ItemPageState extends State<ItemPage> {
             children: [
               const Text("task title: "),
               SizedBox(
-                width: 128,
+                width: 256,
                 child: TextField(
                   controller: _taskTitleController,
+                  onSubmitted:(value) {
+                    setState(() {
+                      widget.item.taskTitle = _taskTitleController.text;
+                    });
+                  },
                 ),
               )
             ],
@@ -50,9 +55,14 @@ class _ItemPageState extends State<ItemPage> {
             children: [
               const Text("task description: "),
               SizedBox(
-                width: 128,
+                width: 256,
                 child: TextField(
                   controller: _taskDescController,
+                  onSubmitted:(value) {
+                    setState(() {
+                      widget.item.taskDescription = _taskDescController.text;
+                    });
+                  },
                 ),
               )
             ],
@@ -61,9 +71,14 @@ class _ItemPageState extends State<ItemPage> {
             children: [
               const Text("reward title: "),
               SizedBox(
-                width: 128,
+                width: 256,
                 child: TextField(
                   controller: _rewardTitleController,
+                  onSubmitted:(value) {
+                    setState(() {
+                      widget.item.rewardTitle = _rewardTitleController.text;
+                    });
+                  },
                 ),
               )
             ],
@@ -72,9 +87,14 @@ class _ItemPageState extends State<ItemPage> {
             children: [
               const Text("reward description: "),
               SizedBox(
-                width: 128,
+                width: 256,
                 child: TextField(
                   controller: _rewardDescController,
+                  onSubmitted:(value) {
+                    setState(() {
+                      widget.item.rewardDescription = _rewardDescController.text;
+                    });
+                  },
                 ),
               )
             ],
