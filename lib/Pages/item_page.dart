@@ -46,7 +46,7 @@ class _ItemPageState extends State<ItemPage> {
         TextEditingController(text: widget.item.getStartBy().toString());
     _endByController =
         TextEditingController(text: widget.item.getEndBy().toIso8601String());
-    _hoursController = TextEditingController(text: (widget.item.getTimeSpent().inMinutes/60.round()).toString());
+    _hoursController = TextEditingController(text: ((widget.item.getTimeSpent().inMinutes/60).round()).toString());
     _minutesController = TextEditingController(text: (widget.item.getTimeSpent().inMinutes%60).toString());
 
     return Scaffold(
@@ -59,6 +59,7 @@ class _ItemPageState extends State<ItemPage> {
           )
         ],
       ),
+      //TODO: @ANGELINA customize based on completion status
       body: Column(
         children: [
           Padding(
@@ -168,31 +169,33 @@ class _ItemPageState extends State<ItemPage> {
           ),
           Row(
             children: [
-              Text("complete: ${widget.item.getIsComplete()}"),
+              Text("Task Complete: ${widget.item.getIsComplete()}"),
             ],
           ),
           Row(
+            //TODO: @ANNA add padding/styling for row children
             children: [
-              const Text("Hours: "),
+              const Text("Time Spent: "),
               SizedBox(
-                width: 128,
-                child: TextField(
+                width: 64,
+                child: TextFormField(
+                  decoration: const InputDecoration(helperText: 'hours'),
                   controller: _hoursController,
                   readOnly: !widget.item.getIsComplete(),
-                  onSubmitted: (value) {
+                  onFieldSubmitted: (value) {
                     setState(() {
-                      widget.item.addTimeSpent(Duration(hours: int.parse(_hoursController.text)));
+                      widget.item.setTimeSpent(Duration(hours: int.parse(_hoursController.text)));
                     });
                   },
                 ),
               ),
-              const Text("Minutes: "),
               SizedBox(
-                width: 128,
-                child: TextField(
+                width: 64,
+                child: TextFormField(
+                  decoration: const InputDecoration(helperText: 'minutes'),
                   controller: _minutesController,
                   readOnly: !widget.item.getIsComplete(),
-                  onSubmitted: (value) {
+                  onFieldSubmitted: (value) {
                     setState(() {
                       widget.item.addTimeSpent(Duration(minutes: int.parse(_minutesController.text)));
                     });

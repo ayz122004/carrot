@@ -6,9 +6,11 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    Provider(
-      create: (_) => MyData(tiList: <TaskItem>[]),
-      child: MyApp(),
+    ChangeNotifierProvider(
+      create: (_) {
+        return MyData(tiList: <TaskItem>[]);
+      },
+      child: const MyApp(),
     ),
   );
 }
