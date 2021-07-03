@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:hackathon/data.dart';
+import 'package:provider/provider.dart';
 
 class TaskItem with ChangeNotifier {
   bool _isComplete = false;
@@ -59,6 +60,10 @@ class TaskItem with ChangeNotifier {
   Duration getTimeSpent() => _timeSpent;
   void addTimeSpent(Duration time) {
     _timeSpent += time;
+    notifyListeners();
+  }
+  void setTimeSpent(Duration time) {
+    _timeSpent = time;
     notifyListeners();
   }
 

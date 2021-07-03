@@ -17,6 +17,7 @@ class _TaskPageState extends State<TaskPage> {
   final _controller = TextEditingController();
 
   void _listener(TaskItem item) {
+    Provider.of<MyData>(context, listen: false).onChange();
     int _index =
         Provider.of<MyData>(context, listen: false).tiList.indexOf(item);
 
@@ -88,12 +89,6 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
-  void _completeTask(TaskItem item) {
-    //TODO: what to do with completed tasks?
-    item.setIsComplete();
-    Fluttertoast.showToast(msg: "task completed!");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,16 +111,16 @@ class _TaskPageState extends State<TaskPage> {
                       .tiList[index]);
                 },
                 onHorizontalDragUpdate: (details) {
-                  _completeTask(Provider.of<MyData>(context, listen: false)
-                      .tiList[index]);
+                  Provider.of<MyData>(context, listen: false).onChange();
+                  Provider.of<MyData>(context, listen: false).completeItem(
+                      Provider.of<MyData>(context, listen: false)
+                          .tiList[index]);
                 },
                 child: ListTile(
-                  title: Text("Task: ${Provider.of<MyData>(context, listen: false)
-                      .tiList[index]
-                      .getTaskTitle()}"),
-                  subtitle: Text("Description: ${Provider.of<MyData>(context, listen: false)
-                      .tiList[index]
-                      .getTaskDesc()}"),
+                  title: Text(
+                      "Task: ${Provider.of<MyData>(context, listen: false).tiList[index].getTaskTitle()}"),
+                  subtitle: Text(
+                      "Description: ${Provider.of<MyData>(context, listen: false).tiList[index].getTaskDesc()}"),
                 ),
               ),
         ],
