@@ -91,36 +91,29 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    final myData = context.watch<MyData>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Task Page"),
       ),
       body: ReorderableListView(
         children: <Widget>[
-          for (int index = 0;
-              index < Provider.of<MyData>(context, listen: false).tiList.length;
-              index++)
-            if (Provider.of<MyData>(context, listen: false)
-                    .tiList[index]
-                    .getIsComplete() ==
-                false)
+          for (int index = 0; index < myData.tiList.length; index++)
+            if (myData.tiList[index].getIsComplete() == false)
               GestureDetector(
                 key: Key('$index'),
                 onTap: () {
-                  _openTask(Provider.of<MyData>(context, listen: false)
-                      .tiList[index]);
+                  _openTask(myData.tiList[index]);
                 },
                 onHorizontalDragUpdate: (details) {
-                  Provider.of<MyData>(context, listen: false).onChange();
-                  Provider.of<MyData>(context, listen: false).completeItem(
-                      Provider.of<MyData>(context, listen: false)
-                          .tiList[index]);
+                  myData.onChange();
+                  myData.completeItem(myData.tiList[index]);
                 },
                 child: ListTile(
                   title: Text(
-                      "Task: ${Provider.of<MyData>(context, listen: false).tiList[index].getTaskTitle()}"),
+                      "Task: ${myData.tiList[index].getTaskTitle()}"),
                   subtitle: Text(
-                      "Description: ${Provider.of<MyData>(context, listen: false).tiList[index].getTaskDesc()}"),
+                      "Description: ${myData.tiList[index].getTaskDesc()}"),
                 ),
               ),
         ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hackathon/Pages/item_page.dart';
@@ -23,28 +22,22 @@ class _RewardPageState extends State<RewardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final myData = context.watch<MyData>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Task Page"),
       ),
       body: ListView(
         children: <Widget>[
-          for (int index = 0;
-              index < Provider.of<MyData>(context, listen: false).tiList.length;
-              index++)
-            if (Provider.of<MyData>(context, listen: false)
-                .tiList[index]
-                .getIsComplete())
+          for (int index = 0; index < myData.tiList.length; index++)
+            if (myData.tiList[index].getIsComplete())
               GestureDetector(
-                onTap: () {
-                  _openTask(Provider.of<MyData>(context, listen: false)
-                      .tiList[index]);
-                },
+                onTap: () => _openTask(myData.tiList[index]),
                 child: ListTile(
-                  title: Text(
-                      "Reward: ${Provider.of<MyData>(context, listen: false).tiList[index].getRewardTitle()}"),
+                  title:
+                      Text("Reward: ${myData.tiList[index].getRewardTitle()}"),
                   subtitle: Text(
-                      "Description: ${Provider.of<MyData>(context, listen: false).tiList[index].getRewardDesc()}"),
+                      "Description: ${myData.tiList[index].getRewardDesc()}"),
                 ),
               ),
         ],
