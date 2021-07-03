@@ -17,14 +17,17 @@ class _TaskPageState extends State<TaskPage> {
 
   void _listener(TaskItem item) {
     int _index = _tiList.indexOf(item);
-    //remove gd from gdList
-    _gdList.remove(_gdList[_index]);
-    //rebuild GD from TI data
-    _buildTask(_tiList[_index]);
+    // //remove gd from gdList
+    // _gdList.remove(_gdList[_index]);
+    // //rebuild GD from TI data
+    // _buildTask(_tiList[_index]);
+
     //reorder _tiList
     TaskItem _temp = item;
     _tiList.remove(item);
-    _tiList.add(_temp);
+    setState(() {
+      _tiList.insert(_index, _temp);
+    });
 
     print(_tiList);
   }
@@ -32,32 +35,34 @@ class _TaskPageState extends State<TaskPage> {
   void _addTaskItem(String title) {
     //add to _tiList
     TaskItem _item = TaskItem(title);
-    _tiList.add(_item);
+    setState(() {
+      _tiList.add(_item);
+    });
     _item.addListener(() {
       _listener(_item);
     });
-    _buildTask(_item);
+    //_buildTask(_item);
     _controller.clear;
   }
 
-  void _buildTask(TaskItem item) {
-    //add to _gdList
-    GestureDetector _gd = GestureDetector(
-      onTap: () {
-        _openTask(item);
-      },
-      child: ListTile(
-        title: Text(item.getTaskTitle()),
-        subtitle: Text(item.getTaskDesc()),
-      ),
-      key: ValueKey('$_counter'),
-    );
-    setState(() {
-      _gdList.add(_gd);
-    });
-    _controller.clear;
-    _counter++;
-  }
+  // void _buildTask(TaskItem item) {
+  //   //add to _gdList
+  //   GestureDetector _gd = GestureDetector(
+  //     onTap: () {
+  //       _openTask(item);
+  //     },
+  //     child: ListTile(
+  //       title: Text(item.getTaskTitle()),
+  //       subtitle: Text(item.getTaskDesc()),
+  //     ),
+  //     key: ValueKey('$_counter'),
+  //   );
+  //   setState(() {
+  //     _gdList.add(_gd);
+  //   });
+  //   _controller.clear;
+  //   _counter++;
+  // }
 
   Future<dynamic> _displayDialog(BuildContext context) async {
     return showDialog(
@@ -113,12 +118,23 @@ class _TaskPageState extends State<TaskPage> {
         title: const Text("Task Page"),
       ),
       body: ReorderableListView(
+        children: <Widget>[
+          for (int index = 0; index < _tiList.length; index++)
+            GestureDetector(
+              key: Key('$index'),
+              onTap: () {
+                _openTask(_tiList[index]);
+              },
+              child: ListTile(
+                title: Text(_tiList[index].getTaskTitle()),
+              ),
+            ),
+        ],
         onReorder: (oldIndex, newIndex) {
           setState(() {
             _reorderTaskList(oldIndex, newIndex);
           });
         },
-        children: _gdList,
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayDialog(context),
