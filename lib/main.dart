@@ -7,9 +7,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (_) {
-        return MyData(tiList: <TaskItem>[]);
-      },
+      create: (_) => MyData(tiList: <TaskItem>[]),
       child: const MyApp(),
     ),
   );

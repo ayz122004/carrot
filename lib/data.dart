@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackathon/task_item.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class MyData with ChangeNotifier{
     print('completeItem called');
     tiList[tiList.indexOf(item)].setIsComplete();
     notifyListeners();
-    print(this.hasListeners);
+    print(hasListeners);
+    Fluttertoast.showToast(msg: "task completed");
   }
 }
