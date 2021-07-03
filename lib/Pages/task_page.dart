@@ -16,9 +16,9 @@ class _TaskPageState extends State<TaskPage> {
   final _controller = TextEditingController();
 
   void _listener() {
-
+    
   }
-  
+
   void _addTaskItem(String title) {
     TaskItem _item = TaskItem(title);
     _tiList.add(_item);
