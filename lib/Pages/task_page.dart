@@ -46,7 +46,10 @@ class _TaskPageState extends State<TaskPage> {
       onTap: () {
         _openTask(item);
       },
-      child: ListTile(title: Text(item.getTaskTitle())),
+      child: ListTile(
+        title: Text(item.getTaskTitle()),
+        subtitle: Text(item.getTaskDesc()),
+      ),
       key: ValueKey('$_counter'),
     );
     setState(() {

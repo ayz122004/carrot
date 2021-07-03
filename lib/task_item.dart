@@ -3,24 +3,27 @@ import 'package:flutter/material.dart';
 class TaskItem with ChangeNotifier {
   bool isCompleted = false;
   String _taskTitle = "default";
-  String taskDescription = "default";
+  String _taskDescription = "default";
   String rewardTitle = "default";
   String rewardDescription = "default";
 
   TaskItem(this._taskTitle);
 
-  String getTaskTitle() {
-    return _taskTitle;
-  }
+  String getTaskTitle() => _taskTitle;
 
   void setTaskTitle(String title) {
     _taskTitle = title;
     notifyListeners();
   }
 
+  String getTaskDesc() => _taskDescription;
+  void setTaskDesc(String description) {
+    _taskDescription = description;
+    notifyListeners();
+  }
+
   @override
   String toString() {
-    // TODO: implement toString
     return _taskTitle;
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon/Pages/task_page.dart';
 import 'package:hackathon/Pages/reward_page.dart';
+import 'package:hackathon/Pages/stat_page.dart';
+
 
 class Home extends StatefulWidget {
   const Home({ Key? key }) : super(key: key);
@@ -25,6 +27,7 @@ class _HomeState extends State<Home> {
       children: const [
         TaskPage(),
         RewardPage(),
+        StatPage(),
       ],
     ),
     bottomNavigationBar: BottomNavigationBar(
@@ -38,6 +41,10 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.star),
             label: 'Reward',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.stacked_bar_chart),
+            label: 'Stats',
           ),
       ],
     ),

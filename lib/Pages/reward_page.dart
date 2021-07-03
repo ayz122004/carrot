@@ -13,7 +13,10 @@ class _RewardPageState extends State<RewardPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Reward Page"),
-      )
+      ),
+      body: Container(
+        child: Text("Under construction"),
+      ),
     );
   }
 }

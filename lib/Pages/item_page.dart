@@ -14,14 +14,13 @@ class _ItemPageState extends State<ItemPage> {
   late TextEditingController _taskDescController;
   late TextEditingController _rewardTitleController;
   late TextEditingController _rewardDescController;
-  //TODO: edit item functionality
 
   @override
   Widget build(BuildContext context) {
     _taskTitleController =
         TextEditingController(text: widget.item.getTaskTitle());
     _taskDescController =
-        TextEditingController(text: widget.item.taskDescription);
+        TextEditingController(text: widget.item.getTaskDesc());
     _rewardTitleController =
         TextEditingController(text: widget.item.rewardTitle);
     _rewardDescController =
@@ -67,7 +66,7 @@ class _ItemPageState extends State<ItemPage> {
                   controller: _taskDescController,
                   onSubmitted: (value) {
                     setState(() {
-                      widget.item.taskDescription = _taskDescController.text;
+                      widget.item.setTaskDesc(_taskDescController.text);
                     });
                   },
                 ),
