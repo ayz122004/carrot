@@ -11,12 +11,25 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   static int _counter = 0;
-  final List<Widget> _taskList = [];
+  final List<GestureDetector> _gdList = [];
+  final List<TaskItem> _tiList = [];
   final _controller = TextEditingController();
+
+  void _listener() {
+
+  }
+  
+  void _addTaskItem(String title) {
+    TaskItem _item = TaskItem(title);
+    _tiList.add(_item);
+    _item.addListener(() {
+      _listener();
+    });
+  }
 
   // TODO: fix this so title gets updated when edited in ItemPage
   Widget _buildTaskItem(String title) {
-    TaskItem _item = TaskItem(title);
+    
     ListTile _tile = ListTile(title: Text(_item.getTaskTitle()));
 
     GestureDetector _gd = GestureDetector(
@@ -62,7 +75,7 @@ class _TaskPageState extends State<TaskPage> {
           return AlertDialog(
             title: const Text("Add a new task"),
             content: TextField(
-              controller: _textEditingController,
+              controller: _controller,
               decoration: const InputDecoration(hintText: "Enter task"),
             ),
             actions: <Widget>[
@@ -70,7 +83,7 @@ class _TaskPageState extends State<TaskPage> {
                 child: const Text("ADD"),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  _buildTaskItem(_textEditingController.text);
+                  _addTaskItem(_controller.text); //TODO: change
                 },
               ),
               TextButton(
@@ -88,8 +101,10 @@ class _TaskPageState extends State<TaskPage> {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    final Widget item = _taskList.removeAt(oldIndex);
-    _taskList.insert(newIndex, item);
+    final GestureDetector gd = _gdList.removeAt(oldIndex);
+    _gdList.insert(newIndex, gd);
+    final TaskItem ti = _tiList.removeAt(oldIndex);
+    _tiList.insert(newIndex, ti);
   }
 
   void _openTask(TaskItem item) {
@@ -111,7 +126,7 @@ class _TaskPageState extends State<TaskPage> {
             _reorderTaskList(oldIndex, newIndex);
           });
         },
-        children: _taskList,
+        children: _gdList,
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayDialog(context),
