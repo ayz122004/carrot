@@ -11,9 +11,8 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   static int _counter = 0;
-//test jgiefjie
   final List<Widget> _taskList = [];
-  final TextEditingController _textEditingController = TextEditingController();
+  final _controller = TextEditingController();
 
   // TODO: fix this so title gets updated when edited in ItemPage
   Widget _buildTaskItem(String title) {
