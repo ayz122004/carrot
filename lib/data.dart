@@ -10,6 +10,12 @@ class MyData with ChangeNotifier{
   void completeItem(TaskItem item) {
     tiList[tiList.indexOf(item)].setIsComplete();
     notifyListeners();
-    Fluttertoast.showToast(msg: "task completed");
+    Fluttertoast.showToast(msg: "task completed!");
+  }
+
+  void addItem(TaskItem item) {
+    tiList.add(item);
+    notifyListeners();
+    Fluttertoast.showToast(msg: "task added!");
   }
 }
