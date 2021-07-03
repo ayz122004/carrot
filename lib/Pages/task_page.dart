@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
 import 'package:hackathon/Pages/item_page.dart';
 import 'package:hackathon/task_item.dart';
-import 'package:provider/provider.dart';
 import 'package:hackathon/data.dart';
 
 class TaskPage extends StatefulWidget {
@@ -89,6 +91,7 @@ class _TaskPageState extends State<TaskPage> {
   void _completeTask(TaskItem item) {
     //TODO: what to do with completed tasks?
     item.setIsComplete();
+    Fluttertoast.showToast(msg: "task completed!");
   }
 
   @override

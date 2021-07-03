@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon/task_item.dart';
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:hackathon/task_item.dart';
 import 'package:hackathon/data.dart';
 
 class ItemPage extends StatefulWidget {
@@ -21,6 +23,7 @@ class _ItemPageState extends State<ItemPage>{
     //TODO: add changeNotifier here - list doesn't update until listener is triggered
     Provider.of<MyData>(context, listen: false).tiList.remove(widget.item);
     Provider.of<MyData>(context, listen: false).tiList[0].plsUpdate(); //h4ck3r
+    Fluttertoast.showToast(msg: "task deleted!");
     Navigator.of(context).pop();
   }
 
