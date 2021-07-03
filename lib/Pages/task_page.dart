@@ -15,27 +15,44 @@ class _TaskPageState extends State<TaskPage> {
   final List<Widget> _taskList = [];
   final TextEditingController _textEditingController = TextEditingController();
 
-  Widget _buildTaskItem(String str) {
-    TaskItem _item = TaskItem(str);
-    ListTile _tile = ListTile(
-      title: Text(_item.taskTitle),
-    );
+  // TODO: fix this so title gets updated when edited in ItemPage
+  Widget _buildTaskItem(String title) {
+    TaskItem _item = TaskItem(title);
+    ListTile _tile = ListTile(title: Text(_item.getTaskTitle()));
 
     GestureDetector _gd = GestureDetector(
       onTap: () {
         _openTask(_item);
       },
       child: _tile,
-      key: ValueKey(str + '$_counter'),
+      key: ValueKey('$_counter'),
     );
 
     setState(() {
       _taskList.add(_gd);
     });
-
-    //TODO: make this work
-    _textEditingController.clear;
+     _textEditingController.clear; //TODO: doesn't work
     _counter++;
+
+    void _listener() {
+      int _index = _taskList.indexOf(_gd);
+      _taskList.remove(_gd);
+      ListTile _newTile = ListTile(title: Text(_item.getTaskTitle()));
+      GestureDetector _newGd = GestureDetector(
+        onTap: () {
+          _openTask(_item);
+        },
+        child: _newTile,
+        key: ValueKey(title + '$_counter'),
+      );
+      setState(() {
+        _taskList.insert(_index, _newGd);
+      });
+      _counter++;
+    }
+
+    _item.addListener(_listener);
+
     return _gd;
   }
 

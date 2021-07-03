@@ -18,7 +18,7 @@ class _ItemPageState extends State<ItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    _taskTitleController = TextEditingController(text: widget.item.taskTitle);
+    _taskTitleController = TextEditingController(text: widget.item.getTaskTitle());
     _taskDescController = TextEditingController(text: widget.item.taskDescription);
     _rewardTitleController = TextEditingController(text: widget.item.rewardTitle);
     _rewardDescController = TextEditingController(text: widget.item.rewardDescription);
@@ -44,7 +44,7 @@ class _ItemPageState extends State<ItemPage> {
                   controller: _taskTitleController,
                   onSubmitted:(value) {
                     setState(() {
-                      widget.item.taskTitle = _taskTitleController.text;
+                      widget.item.setTaskTitle(_taskTitleController.text);
                     });
                   },
                 ),
