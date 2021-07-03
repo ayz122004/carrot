@@ -18,10 +18,14 @@ class _ItemPageState extends State<ItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    _taskTitleController = TextEditingController(text: widget.item.getTaskTitle());
-    _taskDescController = TextEditingController(text: widget.item.taskDescription);
-    _rewardTitleController = TextEditingController(text: widget.item.rewardTitle);
-    _rewardDescController = TextEditingController(text: widget.item.rewardDescription);
+    _taskTitleController =
+        TextEditingController(text: widget.item.getTaskTitle());
+    _taskDescController =
+        TextEditingController(text: widget.item.taskDescription);
+    _rewardTitleController =
+        TextEditingController(text: widget.item.rewardTitle);
+    _rewardDescController =
+        TextEditingController(text: widget.item.rewardDescription);
 
     return Scaffold(
       appBar: AppBar(
@@ -35,21 +39,24 @@ class _ItemPageState extends State<ItemPage> {
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              const Text("task title: "),
-              SizedBox(
-                width: 256,
-                child: TextField(
-                  controller: _taskTitleController,
-                  onSubmitted:(value) {
-                    setState(() {
-                      widget.item.setTaskTitle(_taskTitleController.text);
-                    });
-                  },
-                ),
-              )
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                const Text("task title: "),
+                SizedBox(
+                  width: 256,
+                  child: TextField(
+                    controller: _taskTitleController,
+                    onSubmitted: (value) {
+                      setState(() {
+                        widget.item.setTaskTitle(_taskTitleController.text);
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
           Row(
             children: [
@@ -58,7 +65,7 @@ class _ItemPageState extends State<ItemPage> {
                 width: 256,
                 child: TextField(
                   controller: _taskDescController,
-                  onSubmitted:(value) {
+                  onSubmitted: (value) {
                     setState(() {
                       widget.item.taskDescription = _taskDescController.text;
                     });
@@ -74,7 +81,7 @@ class _ItemPageState extends State<ItemPage> {
                 width: 256,
                 child: TextField(
                   controller: _rewardTitleController,
-                  onSubmitted:(value) {
+                  onSubmitted: (value) {
                     setState(() {
                       widget.item.rewardTitle = _rewardTitleController.text;
                     });
@@ -90,9 +97,10 @@ class _ItemPageState extends State<ItemPage> {
                 width: 256,
                 child: TextField(
                   controller: _rewardDescController,
-                  onSubmitted:(value) {
+                  onSubmitted: (value) {
                     setState(() {
-                      widget.item.rewardDescription = _rewardDescController.text;
+                      widget.item.rewardDescription =
+                          _rewardDescController.text;
                     });
                   },
                 ),
