@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hackathon/Pages/item_page.dart';
+import 'package:hackathon/Pages/create_page.dart';
 import 'package:hackathon/task_item.dart';
 import 'package:hackathon/data.dart';
 
@@ -85,6 +86,13 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
+  void _createTask() {
+    Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => CreatePage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final myData = context.watch<MyData>();
@@ -119,7 +127,7 @@ class _TaskPageState extends State<TaskPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => _createDialog(context),
+          onPressed: () => _createTask(),
           tooltip: 'Add Item',
           child: const Icon(Icons.add)),
     );
