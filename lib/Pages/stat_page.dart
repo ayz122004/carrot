@@ -79,47 +79,59 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
     Widget progressBar() {
       getDayList();
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BarChart(
-          BarChartData(
-            alignment: BarChartAlignment.spaceAround,
-            maxY: 24,
-            titlesData: FlTitlesData(
-              show: true,
-              leftTitles: SideTitles(
-                  showTitles: true,
-                  getTitles: (double value) {
-                    return value.toString();
-                  }
-                  //margin: 20;
+      if (dayList[1] == 0) {
+        //prevent zero division exception
+        return const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text("no tasks today"),
+        );
+      }
+      return AspectRatio(
+        aspectRatio: 4,
+        child: RotatedBox(
+          quarterTurns: 1,
+          child: Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+            child: BarChart(
+              BarChartData(
+                alignment: BarChartAlignment.spaceAround,
+                maxY: 100, 
+                axisTitleData: FlAxisTitleData(
+                  show: true,
+                  leftTitle: AxisTitle(
+                    showTitle: true,
+                    titleText: "Daily Progress Bar",
                   ),
-              bottomTitles: SideTitles(
-                showTitles: true,
-                getTextStyles: (value) => const TextStyle(
-                    color: Color(0xff7589a2),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14),
-                margin: 20,
-                getTitles: (double value) {
-                  return value.toString();
-                },
+                ),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: SideTitles(showTitles: false),
+                  leftTitles: SideTitles(showTitles: false),
+                  rightTitles: SideTitles(
+                    rotateAngle: 270,
+                    showTitles: true,
+                    margin: 20,
+                    getTitles: (double value) {
+                      if (value % 25 == 0) return value.toInt().toString();
+                      return "";
+                    },
+                  ),
+                ),
+                borderData: FlBorderData(
+                  show: false,
+                ),
+                barGroups: [
+                  BarChartGroupData(
+                    x: 0,
+                    barRods: [
+                      BarChartRodData(
+                          y: dayList[0] / dayList[1] * 100,
+                          colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                    ],
+                  ),
+                ],
               ),
             ),
-            borderData: FlBorderData(
-              show: false,
-            ),
-            barGroups: [
-              for (int i = 0; i < 7; i++)
-                BarChartGroupData(
-                  x: i,
-                  barRods: [
-                    BarChartRodData(
-                        y: (weekList[i] / 60),
-                        colors: [Colors.lightBlueAccent, Colors.greenAccent])
-                  ],
-                ),
-            ],
           ),
         ),
       );
@@ -304,14 +316,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: Center(
-              child: TextButton(
-                child: const Text(
-                    "progress bar here"),
-                onPressed: () {
-                  print("info!");
-                },
-              ),
-              heightFactor: 2,
+              child: progressBar(),
             ),
           ),
           SliverAppBar(
