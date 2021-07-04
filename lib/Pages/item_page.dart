@@ -39,20 +39,113 @@ class _ItemPageState extends State<ItemPage> {
 
     void _updateTimeSpent() {
       myData.update();
-      _timeSpent = _tsHours*60 + _tsMinutes;
+      _timeSpent = _tsHours * 60 + _tsMinutes;
       setState(() {
         widget.item.setTimeSpent(Duration(minutes: _timeSpent));
       });
+    }
+
+    Widget _dateTimeField() {
+      var _dText, _mText, _yText, _hText, _minText = TextEditingController(text: "");
+      String _dVal, _mVal = "01";
+      String _yVal = "2021";
+      String _hVal, _minVal = "00";
+      try {
+        return Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              const Text("Deadline: "),
+
+              //Date
+              SizedBox(
+                width: 32,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _dText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "DD"),
+                  readOnly: widget.item.getIsComplete(),
+                  onFieldSubmitted: (value) {
+                    _dVal = _dText.text;
+                  },
+                ),
+              ),
+
+              //Month
+              SizedBox(
+                width: 32,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _mText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "MM"),
+                  readOnly: widget.item.getIsComplete(),
+                  onFieldSubmitted: (value) {
+                    _mVal = _mText.text;
+                  },
+                ),
+              ),
+
+              //Year
+              SizedBox(
+                width: 64,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _yText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "YYYY"),
+                  readOnly: widget.item.getIsComplete(),
+                  onFieldSubmitted: (value) {
+                    _yVal = _yText.text;
+                  },
+                ),
+              ),
+
+              //Hour
+              SizedBox(
+                width: 32,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _hText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "hh"),
+                  readOnly: widget.item.getIsComplete(),
+                  onFieldSubmitted: (value) {
+                    _hVal = _hText.text;
+                  },
+                ),
+              ),
+
+              //Minute
+              SizedBox(
+                width: 32,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _minText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "mm"),
+                  readOnly: widget.item.getIsComplete(),
+                  onFieldSubmitted: (value) {
+                    _minVal = _minText.text;
+                  },
+                ),
+              ),
+
+            ],
+          ),
+        );
+      } catch (e) {
+        rethrow;
+      }
+
+      return const Text("error");
     }
 
     _ttController = TextEditingController(text: widget.item.getTaskTitle());
     _tdController = TextEditingController(text: widget.item.getTaskDesc());
     _rtController = TextEditingController(text: widget.item.getRewardTitle());
     _rdController = TextEditingController(text: widget.item.getRewardDesc());
-    _sbController =
-        TextEditingController(text: widget.item.getStartBy().toString());
-    _ebController =
-        TextEditingController(text: widget.item.getEndBy().toIso8601String());
     _hController = TextEditingController(text: _tsHours.toString());
     _mController = TextEditingController(text: _tsMinutes.toString());
 
@@ -124,38 +217,39 @@ class _ItemPageState extends State<ItemPage> {
               },
             ),
           ),
-          Container(
-            color: Colors.teal[400],
-            padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              decoration:
-                  const InputDecoration(hintText: "Start By: (2000-01-01)"),
-              controller: _sbController,
-              readOnly: widget.item.getIsComplete(),
-              onSubmitted: (value) {
-                myData.update();
-                setState(() {
-                  widget.item.setStartBy(DateTime.parse(_sbController.text));
-                });
-              },
-            ),
-          ),
-          Container(
-            color: Colors.teal,
-            padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              decoration:
-                  const InputDecoration(hintText: "End By: (2000-01-01)"),
-              controller: _ebController,
-              readOnly: widget.item.getIsComplete(),
-              onSubmitted: (value) {
-                myData.update();
-                setState(() {
-                  widget.item.setEndBy(DateTime.parse(_ebController.text));
-                });
-              },
-            ),
-          ),
+          _dateTimeField(),
+          // Container(
+          //   color: Colors.teal[400],
+          //   padding: const EdgeInsets.all(12.0),
+          //   child: TextField(
+          //     decoration:
+          //         const InputDecoration(hintText: "Start By: (2000-01-01)"),
+          //     controller: _sbController,
+          //     readOnly: widget.item.getIsComplete(),
+          //     onSubmitted: (value) {
+          //       myData.update();
+          //       setState(() {
+          //         widget.item.setStartBy(DateTime.parse(_sbController.text));
+          //       });
+          //     },
+          //   ),
+          // ),
+          // Container(
+          //   color: Colors.teal,
+          //   padding: const EdgeInsets.all(12.0),
+          //   child: TextField(
+          //     decoration:
+          //         const InputDecoration(hintText: "End By: (2000-01-01)"),
+          //     controller: _ebController,
+          //     readOnly: widget.item.getIsComplete(),
+          //     onSubmitted: (value) {
+          //       myData.update();
+          //       setState(() {
+          //         widget.item.setEndBy(DateTime.parse(_ebController.text));
+          //       });
+          //     },
+          //   ),
+          // ),
           Container(
             color: Colors.teal[600],
             padding: const EdgeInsets.all(27.0),
@@ -206,7 +300,7 @@ class _ItemPageState extends State<ItemPage> {
           ),
           Container(
             color: Colors.white,
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
             child: Row(
               children: [
                 TextButton(
