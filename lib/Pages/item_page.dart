@@ -23,15 +23,17 @@ class _ItemPageState extends State<ItemPage> {
   late TextEditingController _hoursController;
   late TextEditingController _minutesController;
 
-  void _deleteItem() {
-    Provider.of<MyData>(context, listen: false).tiList.remove(widget.item);
-    Fluttertoast.showToast(msg: "task deleted!");
-    Navigator.of(context).pop();
-  }
-
   @override
   Widget build(BuildContext context) {
     final myData = context.watch<MyData>();
+
+    void _deleteItem() {
+      myData.tiList.remove(widget.item);
+      myData.update();
+      Fluttertoast.showToast(msg: "task deleted!");
+      Navigator.of(context).pop();
+    }
+
     _taskTitleController =
         TextEditingController(text: widget.item.getTaskTitle());
     _taskDescController =
@@ -53,7 +55,7 @@ class _ItemPageState extends State<ItemPage> {
       appBar: AppBar(
         title: const Text("Item Page"),
       ),
-      //TODO: @ANGELINA customize based on completion status
+      //TODO: @ANGELINA customize body based on completion status
       body: Column(
         children: [
           Padding(
@@ -104,6 +106,7 @@ class _ItemPageState extends State<ItemPage> {
                   controller: _rewardTitleController,
                   readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
+                    myData.update();
                     setState(() {
                       widget.item.setRewardTitle(_rewardTitleController.text);
                     });
@@ -121,6 +124,7 @@ class _ItemPageState extends State<ItemPage> {
                   controller: _rewardDescController,
                   readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
+                    myData.update();
                     setState(() {
                       widget.item.setRewardDesc(_rewardDescController.text);
                     });
@@ -138,6 +142,7 @@ class _ItemPageState extends State<ItemPage> {
                   controller: _startByController,
                   readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
+                    myData.update();
                     setState(() {
                       widget.item
                           .setStartBy(DateTime.parse(_startByController.text));
@@ -156,6 +161,7 @@ class _ItemPageState extends State<ItemPage> {
                   controller: _endByController,
                   readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
+                    myData.update();
                     setState(() {
                       widget.item
                           .setEndBy(DateTime.parse(_endByController.text));
@@ -181,6 +187,7 @@ class _ItemPageState extends State<ItemPage> {
                   controller: _hoursController,
                   readOnly: !widget.item.getIsComplete(),
                   onFieldSubmitted: (value) {
+                    myData.update();
                     setState(() {
                       widget.item.setTimeSpent(
                           Duration(hours: int.parse(_hoursController.text)));
@@ -195,6 +202,7 @@ class _ItemPageState extends State<ItemPage> {
                   controller: _minutesController,
                   readOnly: !widget.item.getIsComplete(),
                   onFieldSubmitted: (value) {
+                    myData.update();
                     setState(() {
                       widget.item.addTimeSpent(Duration(
                           minutes: int.parse(_minutesController.text)));
