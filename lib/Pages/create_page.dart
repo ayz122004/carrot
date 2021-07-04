@@ -11,8 +11,8 @@ class CreatePage extends StatelessWidget {
   final _c2 = TextEditingController();
   final _c3 = TextEditingController();
   final _c4 = TextEditingController();
-  final _c5 = TextEditingController();
-  final _c6 = TextEditingController();
+  final _c5 = TextEditingController(text: DateTime.now().toString());
+  final _c6 = TextEditingController(text: DateTime.now().toString());
   String _tt = "", _td = "", _rt = "", _rd = "";
   DateTime _sb = DateTime.now(), _eb = DateTime.now();
 

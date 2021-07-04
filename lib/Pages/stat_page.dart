@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
+
+import 'package:hackathon/data.dart';
 
 class StatPage extends StatefulWidget {
   const StatPage({Key? key}) : super(key: key);
@@ -19,6 +22,60 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+    /*RETRIEVE DATA FROM TILIST FOR CHARTS*/
+
+    final myData = context.watch<MyData>();
+    DateTime today = DateTime.now();
+
+    // set future dates/times' default values to 0
+    var dayList = List.filled(24, 0);
+    var weekList = List.filled(7, 0);
+    var monthList = List.filled(31, 0);
+    var yearList = List.filled(12, 0);
+
+    // daily: list of 24 ints, tasks from today, sorted by completionDate.hour
+    void getDayList() {
+      for (int i = 0; i < myData.tiList.length; i++) {
+        if (myData.tiList[i].completionDate.day == today.day) {
+          dayList[today.hour] += myData.tiList[i].timeSpent.inMinutes;
+        }
+      }
+      print(dayList);
+    }
+
+    // weekly: list of 7 ints, tasks from this week, completionDate.weedday
+    void getWeekList() {
+      int lower = today.day - today.weekday; //first date of the week
+      int upper = today.day - today.weekday + 7; //last date of the week
+      for (int i = 0; i < myData.tiList.length; i++) {
+        if (myData.tiList[i].completionDate.day > lower &&
+            myData.tiList[i].completionDate.day <= upper) {
+          weekList[today.weekday - 1] += myData.tiList[i].timeSpent.inMinutes;
+        }
+      }
+      print(weekList);
+    }
+    // monthly: list of 28-31 ints, tasks from this month, sorted by completionDate.day
+    void getMonthList() {
+      for (int i = 0; i < myData.tiList.length; i++) {
+        if (myData.tiList[i].completionDate.month == today.month) {
+          monthList[today.day-1] += myData.tiList[i].timeSpent.inMinutes;
+        }
+      }
+      print(monthList);
+    }
+
+    // yearly: list of 12 ints, tasks from this year, sorted by completionDate.month
+    void getYearList() {
+      for (int i = 0; i < myData.tiList.length; i++) {
+        if (myData.tiList[i].completionDate.year == today.year) {
+          yearList[today.month-1] += myData.tiList[i].timeSpent.inMinutes;
+        }
+      }
+      print(yearList);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Stats Page"),
@@ -48,7 +105,15 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
               controller: _tabController,
               children: [
                 bC(),
-                const Text("monthly graph here"),
+                TextButton(
+                  child: const Text("monthly graph here\ntap to print stats to console"),
+                  onPressed: () {
+                    getDayList();
+                    getWeekList();
+                    getMonthList();
+                    getYearList();
+                  },
+                ),
                 const Text("yearly graph here"),
               ],
             ),
