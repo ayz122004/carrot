@@ -9,6 +9,7 @@ class StatPage extends StatefulWidget {
 
 class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
   late TabController _tabController;
+
   @override
   void initState() {
     super.initState();
@@ -20,22 +21,37 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Stats Page"),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const <Widget>[
-            Tab(text: "Week"),
-            Tab(text: "Month"),
-            Tab(text: "Year"),
-          ],
-        ),
       ),
-      body: TabBarView(
-        //TODO: @ANGELINA custom scroll view for progress bar
-        controller: _tabController,
-        children: const [
-          Center(child: Text("weekly graph here")),
-          Center(child: Text("monthly graph here")),
-          Center(child: Text("yearly graph here")),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          const SliverToBoxAdapter(
+            child: Center(
+              child: Text("daily progress bar here"),
+              heightFactor: 8,
+            ),
+          ),
+          SliverAppBar(
+            pinned: true,
+            toolbarHeight: 0,
+            bottom: TabBar(
+              tabs: const [
+                Tab(text: 'Week'),
+                Tab(text: 'Month'),
+                Tab(text: 'Year'),
+              ],
+              controller: _tabController,
+            ),
+          ),
+          SliverFillRemaining(
+            child: TabBarView(
+              controller: _tabController,
+              children: const [
+                Text("weekly graph here"),
+                Text("monthly graph here"),
+                Text("yearly graph here"),
+              ],
+            ),
+          ),
         ],
       ),
     );
