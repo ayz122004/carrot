@@ -171,46 +171,52 @@ class _ItemPageState extends State<ItemPage> {
               )
             ],
           ),
-          Row(
-            children: [
-              Text("Task Complete: ${widget.item.getIsComplete()}"),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text("Task Complete: ${widget.item.getIsComplete()}"),
+              ],
+            ),
           ),
-          Row(
-            //TODO: @ANNA add padding/styling for row children
-            children: [
-              const Text("Time Spent: "),
-              SizedBox(
-                width: 64,
-                child: TextFormField(
-                  decoration: const InputDecoration(helperText: 'hours'),
-                  controller: _hoursController,
-                  readOnly: !widget.item.getIsComplete(),
-                  onFieldSubmitted: (value) {
-                    myData.update();
-                    setState(() {
-                      widget.item.setTimeSpent(
-                          Duration(hours: int.parse(_hoursController.text)));
-                    });
-                  },
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              //TODO: @ANNA add padding/styling for row children
+              children: [
+                const Text("Time Spent: "),
+                SizedBox(
+                  width: 64,
+                  child: TextFormField(
+                    decoration: const InputDecoration(helperText: 'hours'),
+                    controller: _hoursController,
+                    readOnly: !widget.item.getIsComplete(),
+                    onFieldSubmitted: (value) {
+                      myData.update();
+                      setState(() {
+                        widget.item.setTimeSpent(
+                            Duration(hours: int.parse(_hoursController.text)));
+                      });
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 64,
-                child: TextFormField(
-                  decoration: const InputDecoration(helperText: 'minutes'),
-                  controller: _minutesController,
-                  readOnly: !widget.item.getIsComplete(),
-                  onFieldSubmitted: (value) {
-                    myData.update();
-                    setState(() {
-                      widget.item.addTimeSpent(Duration(
-                          minutes: int.parse(_minutesController.text)));
-                    });
-                  },
+                SizedBox(
+                  width: 64,
+                  child: TextFormField(
+                    decoration: const InputDecoration(helperText: 'minutes'),
+                    controller: _minutesController,
+                    readOnly: !widget.item.getIsComplete(),
+                    onFieldSubmitted: (value) {
+                      myData.update();
+                      setState(() {
+                        widget.item.addTimeSpent(Duration(
+                            minutes: int.parse(_minutesController.text)));
+                      });
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             children: [

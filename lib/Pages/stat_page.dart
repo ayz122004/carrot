@@ -21,6 +21,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Stats Page"),
       ),
       body: CustomScrollView(
@@ -125,7 +126,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
             x: 0,
             barRods: [
               BarChartRodData(
-                  y: 8, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  y: 0, colors: [Colors.lightBlueAccent, Colors.greenAccent])
             ],
             showingTooltipIndicators: [0],
           ),
@@ -133,7 +134,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
             x: 1,
             barRods: [
               BarChartRodData(
-                  y: 10, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  y: 0, colors: [Colors.lightBlueAccent, Colors.greenAccent])
             ],
             showingTooltipIndicators: [0],
           ),
@@ -141,7 +142,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
             x: 2,
             barRods: [
               BarChartRodData(
-                  y: 14, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  y: 0, colors: [Colors.lightBlueAccent, Colors.greenAccent])
             ],
             showingTooltipIndicators: [0],
           ),
@@ -149,7 +150,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
             x: 3,
             barRods: [
               BarChartRodData(
-                  y: 15, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  y: 0, colors: [Colors.lightBlueAccent, Colors.greenAccent])
             ],
             showingTooltipIndicators: [0],
           ),
@@ -157,7 +158,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
             x: 4,
             barRods: [
               BarChartRodData(
-                  y: 13, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  y: 0, colors: [Colors.lightBlueAccent, Colors.greenAccent])
             ],
             showingTooltipIndicators: [0],
           ),
@@ -165,7 +166,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
             x: 5,
             barRods: [
               BarChartRodData(
-                  y: 10, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  y: 0, colors: [Colors.lightBlueAccent, Colors.greenAccent])
             ],
             showingTooltipIndicators: [0],
           ),
