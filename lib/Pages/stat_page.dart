@@ -171,15 +171,38 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
       //TODO: @ANY add y axis label (Hours)
       getWeekList();
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16),
         child: BarChart(
           BarChartData(
             alignment: BarChartAlignment.spaceAround,
             maxY: 24,
+            axisTitleData: FlAxisTitleData(
+              show: true,
+              rightTitle: AxisTitle(
+                showTitle: true,
+                titleText: "Hours",
+                textStyle: const TextStyle(
+                    color: Color(0xff0090a2),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
+              ),
+              topTitle: AxisTitle(
+                showTitle: true,
+                titleText: "This Week",
+                textStyle: const TextStyle(
+                      color: Color(0xff0090a2),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+              ),
+            ),
             titlesData: FlTitlesData(
               show: true,
               leftTitles: SideTitles(
                   showTitles: true,
+                  getTextStyles: (value) => const TextStyle(
+                    color: Color(0xff7589a2),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
                   getTitles: (double value) {
                     if (value.toInt().isEven) return value.toInt().toString();
                     return "";
@@ -274,10 +297,10 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                     rotateAngle: 270,
                     showTitles: true,
                     getTextStyles: (value) => const TextStyle(
-                      color: Color(0xff7589a2),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14),
-                  margin: 20,
+                        color: Color(0xff7589a2),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
+                    margin: 20,
                     getTitles: (double value) {
                       if (value.toInt().isEven) return value.toInt().toString();
                       return "";
@@ -325,10 +348,33 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
           BarChartData(
             alignment: BarChartAlignment.spaceAround,
             maxY: 24,
+            axisTitleData: FlAxisTitleData(
+              show: true,
+              rightTitle: AxisTitle(
+                showTitle: true,
+                titleText: "Hours",
+                textStyle: const TextStyle(
+                    color: Color(0xff0090a2),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
+              ),
+              topTitle: AxisTitle(
+                showTitle: true,
+                titleText: today.year.toString(),
+                textStyle: const TextStyle(
+                      color: Color(0xff0090a2),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+              ),
+            ),
             titlesData: FlTitlesData(
               show: true,
               leftTitles: SideTitles(
                   showTitles: true,
+                  getTextStyles: (value) => const TextStyle(
+                    color: Color(0xff7589a2),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
                   getTitles: (double value) {
                     if (value.toInt().isEven) return value.toInt().toString();
                     return "";
