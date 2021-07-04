@@ -166,7 +166,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                     fontSize: 14),
                 margin: 20,
                 getTitles: (double value) {
-                  return (value+1).toInt().toString();
+                  return (value + 1).toInt().toString();
                 },
               ),
             ),
@@ -189,6 +189,68 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
       );
     }
 
+    Widget yearChart() {
+      getYearList();
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BarChart(
+          BarChartData(
+            alignment: BarChartAlignment.spaceAround,
+            maxY: 24,
+            titlesData: FlTitlesData(
+              show: true,
+              leftTitles: SideTitles(
+                  showTitles: true,
+                  getTitles: (double value) {
+                    return value.toString();
+                  }
+                  //margin: 20;
+                  ),
+              bottomTitles: SideTitles(
+                showTitles: true,
+                getTextStyles: (value) => const TextStyle(
+                    color: Color(0xff7589a2),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
+                margin: 20,
+                getTitles: (double value) {
+                  List<String> _months = [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec",
+                  ];
+                  return _months[value.toInt()];
+                },
+              ),
+            ),
+            borderData: FlBorderData(
+              show: false,
+            ),
+            barGroups: [
+              for (int i = 0; i < 12; i++)
+                BarChartGroupData(
+                  x: i,
+                  barRods: [
+                    BarChartRodData(
+                        y: (yearList[i] / 60),
+                        colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  ],
+                ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Stats Page"),
@@ -198,14 +260,15 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
           SliverToBoxAdapter(
             child: Center(
               child: TextButton(
-                  child: const Text("progress bar here\ntap to print stats to console"),
-                  onPressed: () {
-                    getDayList();
-                    getWeekList();
-                    getMonthList();
-                    getYearList();
-                  },
-                ),
+                child: const Text(
+                    "progress bar here\ntap to print stats to console"),
+                onPressed: () {
+                  getDayList();
+                  getWeekList();
+                  getMonthList();
+                  getYearList();
+                },
+              ),
               heightFactor: 2,
             ),
           ),
@@ -227,7 +290,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
               children: [
                 weekChart(),
                 monthChart(),
-                const Text("yearly graph here"),
+                yearChart(),
               ],
             ),
           ),
