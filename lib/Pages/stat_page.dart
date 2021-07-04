@@ -22,6 +22,20 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    List<String> _months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
     /*RETRIEVE DATA FROM TILIST FOR CHARTS*/
 
     final myData = context.watch<MyData>();
@@ -218,7 +232,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
       return RotatedBox(
         quarterTurns: 1,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16),
           child: BarChart(
             BarChartData(
               alignment: BarChartAlignment.spaceAround,
@@ -228,14 +242,42 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                 rightTitle: AxisTitle(
                   showTitle: true,
                   titleText: "Hours",
-                ),               
+                  textStyle: const TextStyle(
+                      color: Color(0xff0090a2),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14),
+                ),
+                leftTitle: AxisTitle(
+                  showTitle: true,
+                  textStyle: const TextStyle(
+                      color: Color(0xff0090a2),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                  titleText: _months[today.month - 1],
+                ),
               ),
               titlesData: FlTitlesData(
                 show: true,
-                leftTitles: SideTitles(showTitles: false),
+                topTitles: SideTitles(
+                  showTitles: true,
+                  getTextStyles: (value) => const TextStyle(
+                      color: Color(0xff7589a2),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14),
+                  margin: 20,
+                  getTitles: (double value) {
+                    return "  ";
+                  },
+                ),
+                leftTitles: (SideTitles(showTitles: false)),
                 rightTitles: SideTitles(
                     rotateAngle: 270,
                     showTitles: true,
+                    getTextStyles: (value) => const TextStyle(
+                      color: Color(0xff7589a2),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14),
+                  margin: 20,
                     getTitles: (double value) {
                       if (value.toInt().isEven) return value.toInt().toString();
                       return "";
@@ -301,21 +343,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                     fontSize: 12),
                 margin: 20,
                 getTitles: (double value) {
-                  List<String> _months = [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec",
-                  ];
-                  return _months[value.toInt()];
+                  return _months[value.toInt()].substring(0, 3);
                 },
               ),
             ),
