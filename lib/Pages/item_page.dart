@@ -18,8 +18,6 @@ class _ItemPageState extends State<ItemPage> {
       _tdController,
       _rtController,
       _rdController,
-      _sbController,
-      _ebController,
       _hController,
       _mController;
 
@@ -46,10 +44,29 @@ class _ItemPageState extends State<ItemPage> {
     }
 
     Widget _dateTimeField() {
-      var _dText, _mText, _yText, _hText, _minText = TextEditingController(text: "");
-      String _dVal, _mVal = "01";
-      String _yVal = "2021";
-      String _hVal, _minVal = "00";
+      DateTime _dt = widget.item.getEndBy();
+      String _dVal = _dt.day.toString(),
+          _mVal = _dt.month.toString(),
+          _yVal = _dt.year.toString(),
+          _hVal = _dt.hour.toString(),
+          _minVal = _dt.minute.toString();
+      if (_dt.day < 10) _dVal = "0$_dVal";
+      if (_dt.month < 10) _mVal = "0$_mVal";
+      if (_dt.hour < 10) _hVal = "0$_hVal";
+      if (_dt.minute < 10) _minVal = "0$_minVal";
+      var _dText = TextEditingController(text: _dVal),
+          _mText = TextEditingController(text: _mVal),
+          _yText = TextEditingController(text: _yVal),
+          _hText = TextEditingController(text: _hVal),
+          _minText = TextEditingController(text: _minVal);
+
+      void _update() {
+        myData.update();
+        String str = "$_yVal-$_mVal-$_dVal $_hVal:$_minVal";
+        _dt = DateTime.parse(str);
+        widget.item.setEndBy(_dt);
+      }
+
       try {
         return Container(
           padding: const EdgeInsets.all(8.0),
@@ -68,6 +85,8 @@ class _ItemPageState extends State<ItemPage> {
                   readOnly: widget.item.getIsComplete(),
                   onFieldSubmitted: (value) {
                     _dVal = _dText.text;
+                    if (_dVal.length < 2) _dVal = "0$_dVal";
+                    _update();
                   },
                 ),
               ),
@@ -83,6 +102,8 @@ class _ItemPageState extends State<ItemPage> {
                   readOnly: widget.item.getIsComplete(),
                   onFieldSubmitted: (value) {
                     _mVal = _mText.text;
+                    if (_mVal.length < 2) _mVal = "0$_mVal";
+                    _update();
                   },
                 ),
               ),
@@ -98,6 +119,7 @@ class _ItemPageState extends State<ItemPage> {
                   readOnly: widget.item.getIsComplete(),
                   onFieldSubmitted: (value) {
                     _yVal = _yText.text;
+                    _update();
                   },
                 ),
               ),
@@ -113,6 +135,8 @@ class _ItemPageState extends State<ItemPage> {
                   readOnly: widget.item.getIsComplete(),
                   onFieldSubmitted: (value) {
                     _hVal = _hText.text;
+                    if (_hVal.length < 2) _hVal = "0$_hVal";
+                    _update();
                   },
                 ),
               ),
@@ -128,18 +152,17 @@ class _ItemPageState extends State<ItemPage> {
                   readOnly: widget.item.getIsComplete(),
                   onFieldSubmitted: (value) {
                     _minVal = _minText.text;
+                    if (_minVal.length < 2) _minVal = "0$_minVal";
+                    _update();
                   },
                 ),
               ),
-
             ],
           ),
         );
       } catch (e) {
-        rethrow;
+        return const Text("error");
       }
-
-      return const Text("error");
     }
 
     _ttController = TextEditingController(text: widget.item.getTaskTitle());
@@ -218,22 +241,6 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           _dateTimeField(),
-          // Container(
-          //   color: Colors.teal[400],
-          //   padding: const EdgeInsets.all(12.0),
-          //   child: TextField(
-          //     decoration:
-          //         const InputDecoration(hintText: "Start By: (2000-01-01)"),
-          //     controller: _sbController,
-          //     readOnly: widget.item.getIsComplete(),
-          //     onSubmitted: (value) {
-          //       myData.update();
-          //       setState(() {
-          //         widget.item.setStartBy(DateTime.parse(_sbController.text));
-          //       });
-          //     },
-          //   ),
-          // ),
           // Container(
           //   color: Colors.teal,
           //   padding: const EdgeInsets.all(12.0),
