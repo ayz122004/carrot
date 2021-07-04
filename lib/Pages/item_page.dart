@@ -53,14 +53,14 @@ class _ItemPageState extends State<ItemPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightBlue[900],
+        backgroundColor: Colors.teal[900],
         title: const Text("Item Page"),
       ),
       //TODO: @ANGELINA customize body based on completion status
       body: Column(
         children: [
           Container(
-            color: Colors.lightBlue[50],
+            color: Colors.teal[50],
             padding: EdgeInsets.all(12.0),
             child: Row(
               children: [
@@ -82,7 +82,7 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           Container(
-            color: Colors.lightBlue[100],
+            color: Colors.teal[100],
             padding: EdgeInsets.all(12.0),
             child: Row(
               children: [
@@ -104,7 +104,7 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           Container(
-            color: Colors.lightBlue[200],
+            color: Colors.teal[200],
             padding: EdgeInsets.all(12.0),
             child: Row(
               children: [
@@ -126,7 +126,7 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           Container(
-            color: Colors.lightBlue[300],
+            color: Colors.teal[300],
             padding: EdgeInsets.all(12.0),
             child: Row(
               children: [
@@ -148,7 +148,7 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           Container(
-            color: Colors.lightBlue[400],
+            color: Colors.teal[400],
             padding: EdgeInsets.all(12.0),
             child: Row(
               children: [
@@ -171,7 +171,7 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           Container(
-            color: Colors.lightBlue,
+            color: Colors.teal,
             padding: EdgeInsets.all(12.0),
             child: Row(
               children: [
@@ -194,7 +194,7 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           Container(
-            color: Colors.lightBlue[600],
+            color: Colors.teal[600],
             padding: EdgeInsets.all(27.0),
             child: Row(
               children: [
@@ -203,7 +203,7 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           Container(
-            color: Colors.lightBlue[700],
+            color: Colors.teal[700],
             padding: EdgeInsets.all(7.0),
             child: Row(
               //TODO: @ANNA add padding/styling for row children
