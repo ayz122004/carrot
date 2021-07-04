@@ -54,7 +54,9 @@ class CreatePage extends StatelessWidget {
       if (_dt.minute < 10) _minVal = "0$_minVal";
       var _dText = TextEditingController(text: _dVal),
           _mText = TextEditingController(text: _mVal),
-          _yText = TextEditingController(text: _yVal);
+          _yText = TextEditingController(text: _yVal),
+          _hText = TextEditingController(text: _hVal),
+          _minText = TextEditingController(text: _minVal);
       void _update() {
         myData.update();
         String str = "$_yVal-$_mVal-$_dVal $_hVal:$_minVal";
@@ -111,6 +113,37 @@ class CreatePage extends StatelessWidget {
                   decoration: const InputDecoration(hintText: "YYYY"),
                   onFieldSubmitted: (value) {
                     _yVal = _yText.text;
+                    _update();
+                  },
+                ),
+              ),
+              //Hour
+              SizedBox(
+                width: 32,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _hText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "hh"),
+                  onFieldSubmitted: (value) {
+                    _hVal = _hText.text;
+                    if (_hVal.length < 2) _hVal = "0$_hVal";
+                    _update();
+                  },
+                ),
+              ),
+
+              //Minute
+              SizedBox(
+                width: 32,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _minText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "mm"),
+                  onFieldSubmitted: (value) {
+                    _minVal = _minText.text;
+                    if (_minVal.length < 2) _minVal = "0$_minVal";
                     _update();
                   },
                 ),
