@@ -53,16 +53,18 @@ class _ItemPageState extends State<ItemPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightBlue[900],
         title: const Text("Item Page"),
       ),
       //TODO: @ANGELINA customize body based on completion status
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          Container(
+            color: Colors.lightBlue[50],
+            padding: EdgeInsets.all(12.0),
             child: Row(
               children: [
-                const Text("task title: "),
+                const Text("Task Title: "),
                 SizedBox(
                   width: 256,
                   child: TextField(
@@ -79,161 +81,193 @@ class _ItemPageState extends State<ItemPage> {
               ],
             ),
           ),
-          Row(
-            children: [
-              const Text("task description: "),
-              SizedBox(
-                width: 256,
-                child: TextField(
-                  controller: _taskDescController,
-                  readOnly: widget.item.getIsComplete(),
-                  onSubmitted: (value) {
-                    myData.update();
-                    setState(() {
-                      widget.item.setTaskDesc(_taskDescController.text);
-                    });
+          Container(
+            color: Colors.lightBlue[100],
+            padding: EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                const Text("Task Description: "),
+                SizedBox(
+                  width: 256,
+                  child: TextField(
+                    controller: _taskDescController,
+                    readOnly: widget.item.getIsComplete(),
+                    onSubmitted: (value) {
+                      myData.update();
+                      setState(() {
+                        widget.item.setTaskDesc(_taskDescController.text);
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.lightBlue[200],
+            padding: EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                const Text("Reward Title: "),
+                SizedBox(
+                  width: 256,
+                  child: TextField(
+                    controller: _rewardTitleController,
+                    readOnly: widget.item.getIsComplete(),
+                    onSubmitted: (value) {
+                      myData.update();
+                      setState(() {
+                        widget.item.setRewardTitle(_rewardTitleController.text);
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.lightBlue[300],
+            padding: EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                const Text("Reward Description: "),
+                SizedBox(
+                  width: 256,
+                  child: TextField(
+                    controller: _rewardDescController,
+                    readOnly: widget.item.getIsComplete(),
+                    onSubmitted: (value) {
+                      myData.update();
+                      setState(() {
+                        widget.item.setRewardDesc(_rewardDescController.text);
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.lightBlue[400],
+            padding: EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                const Text("Start By: "),
+                SizedBox(
+                  width: 256,
+                  child: TextField(
+                    controller: _startByController,
+                    readOnly: widget.item.getIsComplete(),
+                    onSubmitted: (value) {
+                      myData.update();
+                      setState(() {
+                        widget.item.setStartBy(
+                            DateTime.parse(_startByController.text));
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.lightBlue,
+            padding: EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                const Text("End By: "),
+                SizedBox(
+                  width: 256,
+                  child: TextField(
+                    controller: _endByController,
+                    readOnly: widget.item.getIsComplete(),
+                    onSubmitted: (value) {
+                      myData.update();
+                      setState(() {
+                        widget.item
+                            .setEndBy(DateTime.parse(_endByController.text));
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.lightBlue[600],
+            padding: EdgeInsets.all(27.0),
+            child: Row(
+              children: [
+                Text("Task Complete: ${widget.item.getIsComplete()}"),
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.lightBlue[700],
+            padding: EdgeInsets.all(7.0),
+            child: Row(
+              //TODO: @ANNA add padding/styling for row children
+              children: [
+                const Text("Time Spent: "),
+                SizedBox(
+                  width: 64,
+                  child: TextFormField(
+                    decoration: const InputDecoration(helperText: 'hours'),
+                    controller: _hoursController,
+                    readOnly: !widget.item.getIsComplete(),
+                    onFieldSubmitted: (value) {
+                      myData.update();
+                      setState(() {
+                        widget.item.setTimeSpent(
+                            Duration(hours: int.parse(_hoursController.text)));
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 64,
+                  child: TextFormField(
+                    decoration: const InputDecoration(helperText: 'minutes'),
+                    controller: _minutesController,
+                    readOnly: !widget.item.getIsComplete(),
+                    onFieldSubmitted: (value) {
+                      myData.update();
+                      setState(() {
+                        widget.item.addTimeSpent(Duration(
+                            minutes: int.parse(_minutesController.text)));
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.white,
+            padding: EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                TextButton(
+                  child: const Text(
+                    "SAVE",
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
                   },
                 ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              const Text("reward title: "),
-              SizedBox(
-                width: 256,
-                child: TextField(
-                  controller: _rewardTitleController,
-                  readOnly: widget.item.getIsComplete(),
-                  onSubmitted: (value) {
-                    myData.update();
-                    setState(() {
-                      widget.item.setRewardTitle(_rewardTitleController.text);
-                    });
+                TextButton(
+                  child: const Text(
+                    "DELETE",
+                    //TODO: @ANNA set color based on getIsComplete()
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  onPressed: () {
+                    widget.item.getIsComplete() ? null : _deleteItem();
                   },
                 ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              const Text("reward description: "),
-              SizedBox(
-                width: 256,
-                child: TextField(
-                  controller: _rewardDescController,
-                  readOnly: widget.item.getIsComplete(),
-                  onSubmitted: (value) {
-                    myData.update();
-                    setState(() {
-                      widget.item.setRewardDesc(_rewardDescController.text);
-                    });
-                  },
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              const Text("start by: "),
-              SizedBox(
-                width: 256,
-                child: TextField(
-                  controller: _startByController,
-                  readOnly: widget.item.getIsComplete(),
-                  onSubmitted: (value) {
-                    myData.update();
-                    setState(() {
-                      widget.item
-                          .setStartBy(DateTime.parse(_startByController.text));
-                    });
-                  },
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              const Text("end by: "),
-              SizedBox(
-                width: 256,
-                child: TextField(
-                  controller: _endByController,
-                  readOnly: widget.item.getIsComplete(),
-                  onSubmitted: (value) {
-                    myData.update();
-                    setState(() {
-                      widget.item
-                          .setEndBy(DateTime.parse(_endByController.text));
-                    });
-                  },
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Text("Task Complete: ${widget.item.getIsComplete()}"),
-            ],
-          ),
-          Row(
-            //TODO: @ANNA add padding/styling for row children
-            children: [
-              const Text("Time Spent: "),
-              SizedBox(
-                width: 64,
-                child: TextFormField(
-                  decoration: const InputDecoration(helperText: 'hours'),
-                  controller: _hoursController,
-                  readOnly: !widget.item.getIsComplete(),
-                  onFieldSubmitted: (value) {
-                    myData.update();
-                    setState(() {
-                      widget.item.setTimeSpent(
-                          Duration(hours: int.parse(_hoursController.text)));
-                    });
-                  },
-                ),
-              ),
-              SizedBox(
-                width: 64,
-                child: TextFormField(
-                  decoration: const InputDecoration(helperText: 'minutes'),
-                  controller: _minutesController,
-                  readOnly: !widget.item.getIsComplete(),
-                  onFieldSubmitted: (value) {
-                    myData.update();
-                    setState(() {
-                      widget.item.addTimeSpent(Duration(
-                          minutes: int.parse(_minutesController.text)));
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              TextButton(
-                child: const Text(
-                  "SAVE",
-                  style: TextStyle(color: Colors.blue),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: const Text(
-                  "DELETE",
-                  //TODO: @ANNA set color based on getIsComplete()
-                  style: TextStyle(color: Colors.red),
-                ),
-                onPressed: () {
-                  widget.item.getIsComplete() ? null : _deleteItem();
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

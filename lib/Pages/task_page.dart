@@ -14,7 +14,6 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
- 
   void _reorderTaskList(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
       newIndex -= 1;
@@ -33,7 +32,7 @@ class _TaskPageState extends State<TaskPage> {
 
   void _createTask() {
     Navigator.push(
-      context, 
+      context,
       MaterialPageRoute(builder: (context) => CreatePage()),
     );
   }
@@ -43,6 +42,8 @@ class _TaskPageState extends State<TaskPage> {
     final myData = context.watch<MyData>();
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.teal[800],
         title: const Text("Task Page"),
       ),
       body: ReorderableListView(
@@ -58,8 +59,7 @@ class _TaskPageState extends State<TaskPage> {
                   myData.completeItem(myData.tiList[index]);
                 },
                 child: ListTile(
-                  title: Text(
-                      "Task: ${myData.tiList[index].getTaskTitle()}"),
+                  title: Text("Task: ${myData.tiList[index].getTaskTitle()}"),
                   subtitle: Text(
                       "Description: ${myData.tiList[index].getTaskDesc()}"),
                 ),

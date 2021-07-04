@@ -25,6 +25,8 @@ class _RewardPageState extends State<RewardPage> {
     final myData = context.watch<MyData>();
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.teal[600],
         title: const Text("Reward Page"),
       ),
       body: ListView(

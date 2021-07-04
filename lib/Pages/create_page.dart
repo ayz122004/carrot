@@ -45,6 +45,8 @@ class CreatePage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.teal[700],
+          centerTitle: true,
           title: const Text("Create Task Item"),
         ),
         body: Column(
