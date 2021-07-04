@@ -57,11 +57,11 @@ class _ItemPageState extends State<ItemPage> {
         title: const Text("Item Page"),
       ),
       //TODO: @ANGELINA customize body based on completion status
-      body: Column(
+      body: ListView(
         children: [
           Container(
             color: Colors.teal[50],
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
             child: TextField(
               decoration: const InputDecoration(hintText: "Task Title"),
               controller: _taskTitleController,
@@ -76,7 +76,7 @@ class _ItemPageState extends State<ItemPage> {
           ),
           Container(
             color: Colors.teal[100],
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
             child: TextField(
               decoration: const InputDecoration(hintText: "Task Description"),
               controller: _taskDescController,
@@ -91,7 +91,7 @@ class _ItemPageState extends State<ItemPage> {
           ),
           Container(
             color: Colors.teal[200],
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
             child: TextField(
               decoration: const InputDecoration(hintText: "Reward Title"),
               controller: _rewardTitleController,
@@ -106,7 +106,7 @@ class _ItemPageState extends State<ItemPage> {
           ),
           Container(
             color: Colors.teal[300],
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
             child: TextField(
               decoration: const InputDecoration(hintText: "Reward Description"),
               controller: _rewardDescController,
@@ -121,50 +121,50 @@ class _ItemPageState extends State<ItemPage> {
           ),
           Container(
             color: Colors.teal[400],
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
             child: TextField(
-              decoration: const InputDecoration(hintText: "Start By: (2000-01-01)"),
+              decoration:
+                  const InputDecoration(hintText: "Start By: (2000-01-01)"),
               controller: _startByController,
               readOnly: widget.item.getIsComplete(),
               onSubmitted: (value) {
                 myData.update();
                 setState(() {
-                  widget.item.setStartBy(
-                      DateTime.parse(_startByController.text));
+                  widget.item
+                      .setStartBy(DateTime.parse(_startByController.text));
                 });
               },
             ),
           ),
           Container(
             color: Colors.teal,
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
             child: TextField(
-              decoration: const InputDecoration(hintText: "End By: (2000-01-01)"),
+              decoration:
+                  const InputDecoration(hintText: "End By: (2000-01-01)"),
               controller: _endByController,
               readOnly: widget.item.getIsComplete(),
               onSubmitted: (value) {
                 myData.update();
                 setState(() {
-                  widget.item
-                      .setEndBy(DateTime.parse(_endByController.text));
+                  widget.item.setEndBy(DateTime.parse(_endByController.text));
                 });
               },
             ),
           ),
           Container(
             color: Colors.teal[600],
-            padding: EdgeInsets.all(27.0),
-            child: Row(
-              children: [
-                Text("Task Complete: ${widget.item.getIsComplete()}"),
-              ],
+            padding: const EdgeInsets.all(27.0),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Task Complete: ${widget.item.getIsComplete()}",
+              style: const TextStyle(fontSize: 16),
             ),
           ),
           Container(
             color: Colors.teal[700],
-            padding: EdgeInsets.all(7.0),
+            padding: const EdgeInsets.all(7.0),
             child: Row(
-              //TODO: @ANNA add padding/styling for row children
               children: [
                 const Text("Time Spent: "),
                 SizedBox(
@@ -217,11 +217,13 @@ class _ItemPageState extends State<ItemPage> {
                 TextButton(
                   child: const Text(
                     "DELETE",
-                    //TODO: @ANNA set color based on getIsComplete()
                     style: TextStyle(color: Colors.red),
                   ),
                   onPressed: () {
-                    widget.item.getIsComplete() ? null : _deleteItem();
+                    widget.item.getIsComplete()
+                        ? Fluttertoast.showToast(
+                            msg: "can't delete completed tasks")
+                        : _deleteItem();
                   },
                 ),
               ],
