@@ -137,7 +137,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
         ),
       );
     }
-    
+
     Widget weekChart() {
       //TODO: @ANY add y axis label (Hours)
       getWeekList();
