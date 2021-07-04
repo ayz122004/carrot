@@ -9,7 +9,7 @@ class TaskItem with ChangeNotifier {
   DateTime startBy = DateTime.now();
   DateTime endBy = DateTime.now();
   Duration timeSpent = const Duration(hours: 0, minutes: 0);
-  late DateTime completionDate;
+  late DateTime completionDate = DateTime.now();
 
   TaskItem({
     required this.taskTitle,
@@ -35,7 +35,7 @@ class TaskItem with ChangeNotifier {
   bool getIsComplete() => isComplete;
   void setIsComplete() {
     isComplete = true;
-    completionDate = DateTime.now();
+    setCompletionDate(DateTime.now());
     notifyListeners();
   }
 
@@ -77,6 +77,7 @@ class TaskItem with ChangeNotifier {
   DateTime getCompletionDate() => completionDate;
   void setCompletionDate(DateTime date) {
     completionDate = date;
+    notifyListeners();
   }
 
   @override
