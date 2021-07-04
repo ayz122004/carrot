@@ -18,7 +18,7 @@
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
-#.vscode/
+.vscode/
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -27,7 +27,7 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
-/web/index.html
+/web/
 .pub-cache/
 .pub/
 /build/
@@ -45,3 +45,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+web/index.html
