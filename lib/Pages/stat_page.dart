@@ -22,7 +22,6 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     /*RETRIEVE DATA FROM TILIST FOR CHARTS*/
 
     final myData = context.watch<MyData>();
@@ -56,11 +55,12 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
       }
       print(weekList);
     }
+
     // monthly: list of 28-31 ints, tasks from this month, sorted by completionDate.day
     void getMonthList() {
       for (int i = 0; i < myData.tiList.length; i++) {
         if (myData.tiList[i].completionDate.month == today.month) {
-          monthList[today.day-1] += myData.tiList[i].timeSpent.inMinutes;
+          monthList[today.day - 1] += myData.tiList[i].timeSpent.inMinutes;
         }
       }
       print(monthList);
@@ -70,7 +70,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
     void getYearList() {
       for (int i = 0; i < myData.tiList.length; i++) {
         if (myData.tiList[i].completionDate.year == today.year) {
-          yearList[today.month-1] += myData.tiList[i].timeSpent.inMinutes;
+          yearList[today.month - 1] += myData.tiList[i].timeSpent.inMinutes;
         }
       }
       print(yearList);
@@ -107,7 +107,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
               children: [
                 bC(),
                 TextButton(
-                  child: const Text("monthly graph here\ntap to print stats to console"),
+                  child: const Text(
+                      "monthly graph here\ntap to print stats to console"),
                   onPressed: () {
                     getDayList();
                     getWeekList();

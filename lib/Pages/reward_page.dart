@@ -26,6 +26,7 @@ class _RewardPageState extends State<RewardPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.teal[600],
         title: const Text("Reward Page"),
       ),
       body: ListView(

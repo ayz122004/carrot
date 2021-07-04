@@ -43,6 +43,7 @@ class _TaskPageState extends State<TaskPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.teal[800],
         title: const Text("Task Page"),
       ),
       body: ReorderableListView(
