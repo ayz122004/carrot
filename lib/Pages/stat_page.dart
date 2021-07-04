@@ -35,6 +35,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
     // daily: list of 24 ints, tasks from today, sorted by completionDate.hour
     void getDayList() {
+      dayList.fillRange(0, 23, 0);
       for (int i = 0; i < myData.tiList.length; i++) {
         if (myData.tiList[i].completionDate.day == today.day) {
           dayList[today.hour] += myData.tiList[i].timeSpent.inMinutes;
@@ -45,6 +46,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
     // weekly: list of 7 ints, tasks from this week, completionDate.weedday
     void getWeekList() {
+      weekList.fillRange(0, 7, 0);
       int lower = today.day - today.weekday; //first date of the week
       int upper = today.day - today.weekday + 7; //last date of the week
       for (int i = 0; i < myData.tiList.length; i++) {
@@ -58,6 +60,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
     // monthly: list of 28-31 ints, tasks from this month, sorted by completionDate.day
     void getMonthList() {
+      monthList.fillRange(0, 31, 0);
       for (int i = 0; i < myData.tiList.length; i++) {
         if (myData.tiList[i].completionDate.month == today.month) {
           monthList[today.day - 1] += myData.tiList[i].timeSpent.inMinutes;
@@ -68,6 +71,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
     // yearly: list of 12 ints, tasks from this year, sorted by completionDate.month
     void getYearList() {
+      dayList.fillRange(0, 12, 0);
       for (int i = 0; i < myData.tiList.length; i++) {
         if (myData.tiList[i].completionDate.year == today.year) {
           yearList[today.month - 1] += myData.tiList[i].timeSpent.inMinutes;
@@ -77,6 +81,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
     }
 
     Widget weekChart() {
+      //TODO: @ANY add y axis label (Hours)
       getWeekList();
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -102,24 +107,16 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                     fontSize: 14),
                 margin: 20,
                 getTitles: (double value) {
-                  switch (value.toInt()) {
-                    case 0:
-                      return 'Mon';
-                    case 1:
-                      return 'Tue';
-                    case 2:
-                      return 'Wed';
-                    case 3:
-                      return 'Thu';
-                    case 4:
-                      return 'Fri';
-                    case 5:
-                      return 'Sat';
-                    case 6:
-                      return 'Sun';
-                    default:
-                      return '';
-                  }
+                  List<String> _weekdays = [
+                    "Mon",
+                    "Tue",
+                    "Wed",
+                    "Thu",
+                    "Fri",
+                    "Sat",
+                    "Sun"
+                  ];
+                  return _weekdays[value.toInt()];
                 },
               ),
             ),
@@ -142,16 +139,74 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
       );
     }
 
+    Widget monthChart() {
+      //TODO: @ANY make this chart sideways
+      getMonthList();
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BarChart(
+          BarChartData(
+            alignment: BarChartAlignment.spaceAround,
+            maxY: 24,
+            titlesData: FlTitlesData(
+              show: true,
+              leftTitles: SideTitles(
+                  showTitles: true,
+                  getTitles: (double value) {
+                    if (value.toInt().isEven) return value.toInt().toString();
+                    return "";
+                  }
+                  //margin: 20;
+                  ),
+              bottomTitles: SideTitles(
+                showTitles: true,
+                getTextStyles: (value) => const TextStyle(
+                    color: Color(0xff7589a2),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
+                margin: 20,
+                getTitles: (double value) {
+                  return (value+1).toInt().toString();
+                },
+              ),
+            ),
+            borderData: FlBorderData(
+              show: false,
+            ),
+            barGroups: [
+              for (int i = 0; i < 31; i++)
+                BarChartGroupData(
+                  x: i,
+                  barRods: [
+                    BarChartRodData(
+                        y: (monthList[i] / 60),
+                        colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  ],
+                ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Stats Page"),
       ),
       body: CustomScrollView(
         slivers: <Widget>[
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Center(
-              child: Text("daily progress bar here"),
-              heightFactor: 8,
+              child: TextButton(
+                  child: const Text("progress bar here\ntap to print stats to console"),
+                  onPressed: () {
+                    getDayList();
+                    getWeekList();
+                    getMonthList();
+                    getYearList();
+                  },
+                ),
+              heightFactor: 2,
             ),
           ),
           SliverAppBar(
@@ -171,16 +226,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
               controller: _tabController,
               children: [
                 weekChart(),
-                TextButton(
-                  child: const Text(
-                      "monthly graph here\ntap to print stats to console"),
-                  onPressed: () {
-                    getDayList();
-                    getWeekList();
-                    getMonthList();
-                    getYearList();
-                  },
-                ),
+                monthChart(),
                 const Text("yearly graph here"),
               ],
             ),
