@@ -35,6 +35,7 @@ class TaskItem with ChangeNotifier {
   bool getIsComplete() => isComplete;
   void setIsComplete() {
     isComplete = true;
+    completionDate = DateTime.now();
     notifyListeners();
   }
 
