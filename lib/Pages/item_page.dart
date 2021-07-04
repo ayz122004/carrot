@@ -62,135 +62,93 @@ class _ItemPageState extends State<ItemPage> {
           Container(
             color: Colors.lightBlue[50],
             padding: EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                const Text("Task Title: "),
-                SizedBox(
-                  width: 256,
-                  child: TextField(
-                    controller: _taskTitleController,
-                    readOnly: widget.item.getIsComplete(),
-                    onSubmitted: (value) {
-                      myData.update();
-                      setState(() {
-                        widget.item.setTaskTitle(_taskTitleController.text);
-                      });
-                    },
-                  ),
-                )
-              ],
+            child: TextField(
+              decoration: const InputDecoration(hintText: "Task Title"),
+              controller: _taskTitleController,
+              readOnly: widget.item.getIsComplete(),
+              onSubmitted: (value) {
+                myData.update();
+                setState(() {
+                  widget.item.setTaskTitle(_taskTitleController.text);
+                });
+              },
             ),
           ),
           Container(
             color: Colors.lightBlue[100],
             padding: EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                const Text("Task Description: "),
-                SizedBox(
-                  width: 256,
-                  child: TextField(
-                    controller: _taskDescController,
-                    readOnly: widget.item.getIsComplete(),
-                    onSubmitted: (value) {
-                      myData.update();
-                      setState(() {
-                        widget.item.setTaskDesc(_taskDescController.text);
-                      });
-                    },
-                  ),
-                )
-              ],
+            child: TextField(
+              decoration: const InputDecoration(hintText: "Task Description"),
+              controller: _taskDescController,
+              readOnly: widget.item.getIsComplete(),
+              onSubmitted: (value) {
+                myData.update();
+                setState(() {
+                  widget.item.setTaskDesc(_taskDescController.text);
+                });
+              },
             ),
           ),
           Container(
             color: Colors.lightBlue[200],
             padding: EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                const Text("Reward Title: "),
-                SizedBox(
-                  width: 256,
-                  child: TextField(
-                    controller: _rewardTitleController,
-                    readOnly: widget.item.getIsComplete(),
-                    onSubmitted: (value) {
-                      myData.update();
-                      setState(() {
-                        widget.item.setRewardTitle(_rewardTitleController.text);
-                      });
-                    },
-                  ),
-                )
-              ],
+            child: TextField(
+              decoration: const InputDecoration(hintText: "Reward Title"),
+              controller: _rewardTitleController,
+              readOnly: widget.item.getIsComplete(),
+              onSubmitted: (value) {
+                myData.update();
+                setState(() {
+                  widget.item.setRewardTitle(_rewardTitleController.text);
+                });
+              },
             ),
           ),
           Container(
             color: Colors.lightBlue[300],
             padding: EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                const Text("Reward Description: "),
-                SizedBox(
-                  width: 256,
-                  child: TextField(
-                    controller: _rewardDescController,
-                    readOnly: widget.item.getIsComplete(),
-                    onSubmitted: (value) {
-                      myData.update();
-                      setState(() {
-                        widget.item.setRewardDesc(_rewardDescController.text);
-                      });
-                    },
-                  ),
-                )
-              ],
+            child: TextField(
+              decoration: const InputDecoration(hintText: "Reward Description"),
+              controller: _rewardDescController,
+              readOnly: widget.item.getIsComplete(),
+              onSubmitted: (value) {
+                myData.update();
+                setState(() {
+                  widget.item.setRewardDesc(_rewardDescController.text);
+                });
+              },
             ),
           ),
           Container(
             color: Colors.lightBlue[400],
             padding: EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                const Text("Start By: "),
-                SizedBox(
-                  width: 256,
-                  child: TextField(
-                    controller: _startByController,
-                    readOnly: widget.item.getIsComplete(),
-                    onSubmitted: (value) {
-                      myData.update();
-                      setState(() {
-                        widget.item.setStartBy(
-                            DateTime.parse(_startByController.text));
-                      });
-                    },
-                  ),
-                )
-              ],
+            child: TextField(
+              decoration: const InputDecoration(hintText: "Start By: (2000-01-01)"),
+              controller: _startByController,
+              readOnly: widget.item.getIsComplete(),
+              onSubmitted: (value) {
+                myData.update();
+                setState(() {
+                  widget.item.setStartBy(
+                      DateTime.parse(_startByController.text));
+                });
+              },
             ),
           ),
           Container(
             color: Colors.lightBlue,
             padding: EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                const Text("End By: "),
-                SizedBox(
-                  width: 256,
-                  child: TextField(
-                    controller: _endByController,
-                    readOnly: widget.item.getIsComplete(),
-                    onSubmitted: (value) {
-                      myData.update();
-                      setState(() {
-                        widget.item
-                            .setEndBy(DateTime.parse(_endByController.text));
-                      });
-                    },
-                  ),
-                )
-              ],
+            child: TextField(
+              decoration: const InputDecoration(hintText: "End By: (2000-01-01)"),
+              controller: _endByController,
+              readOnly: widget.item.getIsComplete(),
+              onSubmitted: (value) {
+                myData.update();
+                setState(() {
+                  widget.item
+                      .setEndBy(DateTime.parse(_endByController.text));
+                });
+              },
             ),
           ),
           Container(
