@@ -14,17 +14,20 @@ class ItemPage extends StatefulWidget {
 }
 
 class _ItemPageState extends State<ItemPage> {
-  late TextEditingController _taskTitleController;
-  late TextEditingController _taskDescController;
-  late TextEditingController _rewardTitleController;
-  late TextEditingController _rewardDescController;
-  late TextEditingController _startByController;
-  late TextEditingController _endByController;
-  late TextEditingController _hoursController;
-  late TextEditingController _minutesController;
+  late TextEditingController _ttController,
+      _tdController,
+      _rtController,
+      _rdController,
+      _sbController,
+      _ebController,
+      _hController,
+      _mController;
 
   @override
   Widget build(BuildContext context) {
+    int _timeSpent = widget.item.getTimeSpent().inMinutes;
+    int _tsHours = _timeSpent ~/ 60;
+    int _tsMinutes = _timeSpent % 60;
     final myData = context.watch<MyData>();
 
     void _deleteItem() {
@@ -34,22 +37,24 @@ class _ItemPageState extends State<ItemPage> {
       Navigator.of(context).pop();
     }
 
-    _taskTitleController =
-        TextEditingController(text: widget.item.getTaskTitle());
-    _taskDescController =
-        TextEditingController(text: widget.item.getTaskDesc());
-    _rewardTitleController =
-        TextEditingController(text: widget.item.getRewardTitle());
-    _rewardDescController =
-        TextEditingController(text: widget.item.getRewardDesc());
-    _startByController =
+    void _updateTimeSpent() {
+      myData.update();
+      _timeSpent = _tsHours*60 + _tsMinutes;
+      setState(() {
+        widget.item.setTimeSpent(Duration(minutes: _timeSpent));
+      });
+    }
+
+    _ttController = TextEditingController(text: widget.item.getTaskTitle());
+    _tdController = TextEditingController(text: widget.item.getTaskDesc());
+    _rtController = TextEditingController(text: widget.item.getRewardTitle());
+    _rdController = TextEditingController(text: widget.item.getRewardDesc());
+    _sbController =
         TextEditingController(text: widget.item.getStartBy().toString());
-    _endByController =
+    _ebController =
         TextEditingController(text: widget.item.getEndBy().toIso8601String());
-    _hoursController = TextEditingController(
-        text: ((widget.item.getTimeSpent().inMinutes / 60).round()).toString());
-    _minutesController = TextEditingController(
-        text: (widget.item.getTimeSpent().inMinutes % 60).toString());
+    _hController = TextEditingController(text: _tsHours.toString());
+    _mController = TextEditingController(text: _tsMinutes.toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -64,12 +69,12 @@ class _ItemPageState extends State<ItemPage> {
             padding: const EdgeInsets.all(12.0),
             child: TextField(
               decoration: const InputDecoration(hintText: "Task Title"),
-              controller: _taskTitleController,
+              controller: _ttController,
               readOnly: widget.item.getIsComplete(),
               onSubmitted: (value) {
                 myData.update();
                 setState(() {
-                  widget.item.setTaskTitle(_taskTitleController.text);
+                  widget.item.setTaskTitle(_ttController.text);
                 });
               },
             ),
@@ -79,12 +84,12 @@ class _ItemPageState extends State<ItemPage> {
             padding: const EdgeInsets.all(12.0),
             child: TextField(
               decoration: const InputDecoration(hintText: "Task Description"),
-              controller: _taskDescController,
+              controller: _tdController,
               readOnly: widget.item.getIsComplete(),
               onSubmitted: (value) {
                 myData.update();
                 setState(() {
-                  widget.item.setTaskDesc(_taskDescController.text);
+                  widget.item.setTaskDesc(_tdController.text);
                 });
               },
             ),
@@ -94,12 +99,12 @@ class _ItemPageState extends State<ItemPage> {
             padding: const EdgeInsets.all(12.0),
             child: TextField(
               decoration: const InputDecoration(hintText: "Reward Title"),
-              controller: _rewardTitleController,
+              controller: _rtController,
               readOnly: widget.item.getIsComplete(),
               onSubmitted: (value) {
                 myData.update();
                 setState(() {
-                  widget.item.setRewardTitle(_rewardTitleController.text);
+                  widget.item.setRewardTitle(_rtController.text);
                 });
               },
             ),
@@ -109,12 +114,12 @@ class _ItemPageState extends State<ItemPage> {
             padding: const EdgeInsets.all(12.0),
             child: TextField(
               decoration: const InputDecoration(hintText: "Reward Description"),
-              controller: _rewardDescController,
+              controller: _rdController,
               readOnly: widget.item.getIsComplete(),
               onSubmitted: (value) {
                 myData.update();
                 setState(() {
-                  widget.item.setRewardDesc(_rewardDescController.text);
+                  widget.item.setRewardDesc(_rdController.text);
                 });
               },
             ),
@@ -125,13 +130,12 @@ class _ItemPageState extends State<ItemPage> {
             child: TextField(
               decoration:
                   const InputDecoration(hintText: "Start By: (2000-01-01)"),
-              controller: _startByController,
+              controller: _sbController,
               readOnly: widget.item.getIsComplete(),
               onSubmitted: (value) {
                 myData.update();
                 setState(() {
-                  widget.item
-                      .setStartBy(DateTime.parse(_startByController.text));
+                  widget.item.setStartBy(DateTime.parse(_sbController.text));
                 });
               },
             ),
@@ -142,12 +146,12 @@ class _ItemPageState extends State<ItemPage> {
             child: TextField(
               decoration:
                   const InputDecoration(hintText: "End By: (2000-01-01)"),
-              controller: _endByController,
+              controller: _ebController,
               readOnly: widget.item.getIsComplete(),
               onSubmitted: (value) {
                 myData.update();
                 setState(() {
-                  widget.item.setEndBy(DateTime.parse(_endByController.text));
+                  widget.item.setEndBy(DateTime.parse(_ebController.text));
                 });
               },
             ),
@@ -161,6 +165,8 @@ class _ItemPageState extends State<ItemPage> {
               style: const TextStyle(fontSize: 16),
             ),
           ),
+
+          //timeSpent fields
           Container(
             color: Colors.teal[700],
             padding: const EdgeInsets.all(7.0),
@@ -170,30 +176,28 @@ class _ItemPageState extends State<ItemPage> {
                 SizedBox(
                   width: 64,
                   child: TextFormField(
-                    decoration: const InputDecoration(helperText: 'hours'),
-                    controller: _hoursController,
+                    textAlign: TextAlign.center,
+                    controller: _hController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(suffixText: "hrs"),
                     readOnly: !widget.item.getIsComplete(),
                     onFieldSubmitted: (value) {
-                      myData.update();
-                      setState(() {
-                        widget.item.setTimeSpent(
-                            Duration(hours: int.parse(_hoursController.text)));
-                      });
+                      _tsHours = int.parse(_hController.text);
+                      _updateTimeSpent();
                     },
                   ),
                 ),
                 SizedBox(
                   width: 64,
                   child: TextFormField(
-                    decoration: const InputDecoration(helperText: 'minutes'),
-                    controller: _minutesController,
+                    decoration: const InputDecoration(suffixText: "min"),
+                    textAlign: TextAlign.center,
+                    controller: _mController,
+                    keyboardType: TextInputType.number,
                     readOnly: !widget.item.getIsComplete(),
                     onFieldSubmitted: (value) {
-                      myData.update();
-                      setState(() {
-                        widget.item.addTimeSpent(Duration(
-                            minutes: int.parse(_minutesController.text)));
-                      });
+                      _tsMinutes = int.parse(_mController.text);
+                      _updateTimeSpent();
                     },
                   ),
                 ),

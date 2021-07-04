@@ -64,11 +64,6 @@ class TaskItem with ChangeNotifier {
   }
 
   Duration getTimeSpent() => timeSpent;
-  void addTimeSpent(Duration time) {
-    timeSpent += time;
-    notifyListeners();
-  }
-
   void setTimeSpent(Duration time) {
     timeSpent = time;
     notifyListeners();
