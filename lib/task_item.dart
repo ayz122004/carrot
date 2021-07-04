@@ -1,77 +1,85 @@
 import 'package:flutter/material.dart';
 
 class TaskItem with ChangeNotifier {
-  bool _isComplete = false;
-  String _taskTitle = "";
-  String _taskDescription = "";
-  String _rewardTitle = "";
-  String _rewardDescription = "";
-  DateTime _startBy = DateTime.now();
-  DateTime _endBy = DateTime.now();
-  Duration _timeSpent = const Duration(hours: 0, minutes: 0);
-  late DateTime _completionDate;
+  bool isComplete = false;
+  String taskTitle;
+  String taskDesc;
+  String rewardTitle;
+  String rewardDesc;
+  DateTime startBy = DateTime.now();
+  DateTime endBy = DateTime.now();
+  Duration timeSpent = const Duration(hours: 0, minutes: 0);
+  late DateTime completionDate;
 
-  TaskItem(this._taskTitle);
+  TaskItem({
+    required this.taskTitle,
+    required this.taskDesc,
+    required this.rewardTitle,
+    required this.rewardDesc,
+    required this.startBy,
+    required this.endBy,
+  });
 
-  String getTaskTitle() => _taskTitle;
+  String getTaskTitle() => taskTitle;
   void setTaskTitle(String title) {
-    _taskTitle = title;
+    taskTitle = title;
     notifyListeners();
   }
 
-  String getTaskDesc() => _taskDescription;
+  String getTaskDesc() => taskDesc;
   void setTaskDesc(String description) {
-    _taskDescription = description;
+    taskDesc = description;
     notifyListeners();
   }
 
-  bool getIsComplete() => _isComplete;
+  bool getIsComplete() => isComplete;
   void setIsComplete() {
-    _isComplete = true;
+    isComplete = true;
     notifyListeners();
   }
 
-  String getRewardTitle() => _rewardTitle;
+  String getRewardTitle() => rewardTitle;
   void setRewardTitle(String title) {
-    _rewardTitle = title;
+    rewardTitle = title;
     notifyListeners();
   }
 
-  String getRewardDesc() => _rewardDescription;
+  String getRewardDesc() => rewardDesc;
   void setRewardDesc(String description) {
-    _rewardDescription = description;
+    rewardDesc = description;
     notifyListeners();
   }
 
-  DateTime getStartBy() => _startBy;
+  DateTime getStartBy() => startBy;
   void setStartBy(DateTime time) {
-    _startBy = time;
+    startBy = time;
     notifyListeners();
   }
 
-  DateTime getEndBy() => _endBy;
+  DateTime getEndBy() => endBy;
   void setEndBy(DateTime time) {
-    _endBy = time;
+    endBy = time;
     notifyListeners();
   }
 
-  Duration getTimeSpent() => _timeSpent;
+  Duration getTimeSpent() => timeSpent;
   void addTimeSpent(Duration time) {
-    _timeSpent += time;
-    notifyListeners();
-  }
-  void setTimeSpent(Duration time) {
-    _timeSpent = time;
+    timeSpent += time;
     notifyListeners();
   }
 
-  DateTime getCompletionDate() => _completionDate;
+  void setTimeSpent(Duration time) {
+    timeSpent = time;
+    notifyListeners();
+  }
+
+  DateTime getCompletionDate() => completionDate;
   void setCompletionDate(DateTime date) {
-    _completionDate = date;
+    completionDate = date;
   }
 
   @override
   String toString() {
-    return _taskTitle;
+    return taskTitle;
   }
 }

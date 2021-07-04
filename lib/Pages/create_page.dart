@@ -11,10 +11,10 @@ class CreatePage extends StatelessWidget {
   final _c2 = TextEditingController();
   final _c3 = TextEditingController();
   final _c4 = TextEditingController();
-  String _tt = "";
-  String _td = "";
-  String _rt = "";
-  String _rd = "";
+  final _c5 = TextEditingController();
+  final _c6 = TextEditingController();
+  String _tt = "", _td = "", _rt = "", _rd = "";
+  DateTime _sb = DateTime.now(), _eb = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,15 @@ class CreatePage extends StatelessWidget {
       myData.tiList.insert(_index, _temp);
     }
 
-    void _addTaskItem(String title) {
-      TaskItem _item = TaskItem(title);
+    void _addTaskItem() {
+      TaskItem _item = TaskItem(
+        taskTitle: _tt,
+        taskDesc: _td,
+        rewardDesc: _rd,
+        rewardTitle: _rt,
+        startBy: _sb,
+        endBy: _eb,
+      );
       myData.addItem(_item);
       _item.addListener(() {
         _listener(_item);
@@ -70,10 +77,24 @@ class CreatePage extends StatelessWidget {
                 _rd = _c4.text;
               },
             ),
+            TextFormField(
+              controller: _c5,
+              decoration: const InputDecoration(hintText: "start by"),
+              onFieldSubmitted: (value) {
+                _sb = DateTime.parse(_c5.text);
+              },
+            ),
+            TextFormField(
+              controller: _c6,
+              decoration: const InputDecoration(hintText: "finish by"),
+              onFieldSubmitted: (value) {
+                _eb = DateTime.parse(_c6.text);
+              },
+            ),
             Row(
               children: [
                 TextButton(
-                  onPressed: () => _addTaskItem(_tt),
+                  onPressed: () => _addTaskItem(),
                   child: const Text("ADD"),
                 ),
                 TextButton(
