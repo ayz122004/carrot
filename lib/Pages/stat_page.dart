@@ -80,6 +80,64 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
       print(yearList);
     }
 
+    Widget progressBar() {
+      getDayList();
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BarChart(
+          BarChartData(
+            alignment: BarChartAlignment.spaceAround,
+            maxY: 24,
+            titlesData: FlTitlesData(
+              show: true,
+              leftTitles: SideTitles(
+                  showTitles: true,
+                  getTitles: (double value) {
+                    if (value.toInt().isEven) return value.toInt().toString();
+                    return "";
+                  }
+                  //margin: 20;
+                  ),
+              bottomTitles: SideTitles(
+                showTitles: true,
+                getTextStyles: (value) => const TextStyle(
+                    color: Color(0xff7589a2),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
+                margin: 20,
+                getTitles: (double value) {
+                  List<String> _weekdays = [
+                    "Mon",
+                    "Tue",
+                    "Wed",
+                    "Thu",
+                    "Fri",
+                    "Sat",
+                    "Sun"
+                  ];
+                  return _weekdays[value.toInt()];
+                },
+              ),
+            ),
+            borderData: FlBorderData(
+              show: false,
+            ),
+            barGroups: [
+              for (int i = 0; i < 7; i++)
+                BarChartGroupData(
+                  x: i,
+                  barRods: [
+                    BarChartRodData(
+                        y: (weekList[i] / 60),
+                        colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  ],
+                ),
+            ],
+          ),
+        ),
+      );
+    }
+    
     Widget weekChart() {
       //TODO: @ANY add y axis label (Hours)
       getWeekList();
@@ -253,7 +311,6 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: const Text("Stats Page"),
       ),
       body: CustomScrollView(
