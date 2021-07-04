@@ -28,20 +28,20 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
     DateTime today = DateTime.now();
 
     // set future dates/times' default values to 0
-    var dayList = List.filled(24, 0);
+    var dayList = List.filled(2, 0);
     var weekList = List.filled(7, 0);
     var monthList = List.filled(31, 0);
     var yearList = List.filled(12, 0);
 
-    // daily: list of 24 ints, tasks from today, sorted by completionDate.hour
+    // daily: completed/total TaskItems in list
     void getDayList() {
-      dayList.fillRange(0, 23, 0);
+      dayList.fillRange(0, 2, 0);
       for (int i = 0; i < myData.tiList.length; i++) {
-        if (myData.tiList[i].completionDate.day == today.day) {
-          dayList[today.hour] += myData.tiList[i].timeSpent.inMinutes;
+        if (myData.tiList[i].endBy.day == today.day) {
+          if (myData.tiList[i].isComplete) dayList[0]++;
+          dayList[1]++;
         }
       }
-      print(dayList);
     }
 
     // weekly: list of 7 ints, tasks from this week, completionDate.weedday
@@ -55,7 +55,6 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
           weekList[today.weekday - 1] += myData.tiList[i].timeSpent.inMinutes;
         }
       }
-      print(weekList);
     }
 
     // monthly: list of 28-31 ints, tasks from this month, sorted by completionDate.day
@@ -66,18 +65,16 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
           monthList[today.day - 1] += myData.tiList[i].timeSpent.inMinutes;
         }
       }
-      print(monthList);
     }
 
     // yearly: list of 12 ints, tasks from this year, sorted by completionDate.month
     void getYearList() {
-      dayList.fillRange(0, 12, 0);
+      yearList.fillRange(0, 12, 0);
       for (int i = 0; i < myData.tiList.length; i++) {
         if (myData.tiList[i].completionDate.year == today.year) {
           yearList[today.month - 1] += myData.tiList[i].timeSpent.inMinutes;
         }
       }
-      print(yearList);
     }
 
     Widget progressBar() {
@@ -93,8 +90,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
               leftTitles: SideTitles(
                   showTitles: true,
                   getTitles: (double value) {
-                    if (value.toInt().isEven) return value.toInt().toString();
-                    return "";
+                    return value.toString();
                   }
                   //margin: 20;
                   ),
@@ -106,16 +102,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                     fontSize: 14),
                 margin: 20,
                 getTitles: (double value) {
-                  List<String> _weekdays = [
-                    "Mon",
-                    "Tue",
-                    "Wed",
-                    "Thu",
-                    "Fri",
-                    "Sat",
-                    "Sun"
-                  ];
-                  return _weekdays[value.toInt()];
+                  return value.toString();
                 },
               ),
             ),
@@ -137,7 +124,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
         ),
       );
     }
-    
+
     Widget weekChart() {
       //TODO: @ANY add y axis label (Hours)
       getWeekList();
@@ -319,12 +306,9 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
             child: Center(
               child: TextButton(
                 child: const Text(
-                    "progress bar here\ntap to print stats to console"),
+                    "progress bar here"),
                 onPressed: () {
-                  getDayList();
-                  getWeekList();
-                  getMonthList();
-                  getYearList();
+                  print("info!");
                 },
               ),
               heightFactor: 2,
