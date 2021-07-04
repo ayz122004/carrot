@@ -12,9 +12,8 @@ class CreatePage extends StatelessWidget {
   final _c3 = TextEditingController();
   final _c4 = TextEditingController();
   final _c5 = TextEditingController(text: DateTime.now().toString());
-  final _c6 = TextEditingController(text: DateTime.now().toString());
   String _tt = "", _td = "", _rt = "", _rd = "";
-  DateTime _sb = DateTime.now(), _eb = DateTime.now();
+  DateTime _dl = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +32,95 @@ class CreatePage extends StatelessWidget {
         taskDesc: _td,
         rewardDesc: _rd,
         rewardTitle: _rt,
-        startBy: _sb,
-        endBy: _eb,
+        deadline: _dl,
       );
       myData.addItem(_item);
       _item.addListener(() {
         _listener(_item);
       });
       Navigator.of(context).pop();
+    }
+
+    Widget _dateTimeField() {
+      DateTime _dt = DateTime.now();
+      String _dVal = _dt.day.toString(),
+          _mVal = _dt.month.toString(),
+          _yVal = _dt.year.toString(),
+          _hVal = _dt.hour.toString(),
+          _minVal = _dt.minute.toString();
+      if (_dt.day < 10) _dVal = "0$_dVal";
+      if (_dt.month < 10) _mVal = "0$_mVal";
+      if (_dt.hour < 10) _hVal = "0$_hVal";
+      if (_dt.minute < 10) _minVal = "0$_minVal";
+      var _dText = TextEditingController(text: _dVal),
+          _mText = TextEditingController(text: _mVal),
+          _yText = TextEditingController(text: _yVal);
+      void _update() {
+        myData.update();
+        String str = "$_yVal-$_mVal-$_dVal $_hVal:$_minVal";
+        _dt = DateTime.parse(str);
+        _dl = _dt;
+      }
+
+      try {
+        return Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              const Text("Deadline: "),
+
+              //Date
+              SizedBox(
+                width: 32,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _dText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "DD"),
+                  onFieldSubmitted: (value) {
+                    _dVal = _dText.text;
+                    if (_dVal.length < 2) _dVal = "0$_dVal";
+                    _update();
+                  },
+                ),
+              ),
+
+              //Month
+              SizedBox(
+                width: 32,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _mText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "MM"),
+                  onFieldSubmitted: (value) {
+                    _mVal = _mText.text;
+                    if (_mVal.length < 2) _mVal = "0$_mVal";
+                    _update();
+                  },
+                ),
+              ),
+
+              //Year
+              SizedBox(
+                width: 64,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: _yText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: "YYYY"),
+                  onFieldSubmitted: (value) {
+                    _yVal = _yText.text;
+                    _update();
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      } catch (e) {
+        return const Text("error");
+      }
     }
 
     return Scaffold(
@@ -79,20 +159,7 @@ class CreatePage extends StatelessWidget {
                 _rd = _c4.text;
               },
             ),
-            TextFormField(
-              controller: _c5,
-              decoration: const InputDecoration(hintText: "start by"),
-              onFieldSubmitted: (value) {
-                _sb = DateTime.parse(_c5.text);
-              },
-            ),
-            TextFormField(
-              controller: _c6,
-              decoration: const InputDecoration(hintText: "finish by"),
-              onFieldSubmitted: (value) {
-                _eb = DateTime.parse(_c6.text);
-              },
-            ),
+            _dateTimeField(),
             Row(
               children: [
                 TextButton(

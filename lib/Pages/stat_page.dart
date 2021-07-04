@@ -37,7 +37,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
     void getDayList() {
       dayList.fillRange(0, 2, 0);
       for (int i = 0; i < myData.tiList.length; i++) {
-        if (myData.tiList[i].endBy.day == today.day) {
+        if (myData.tiList[i].deadline.day == today.day) {
           if (myData.tiList[i].isComplete) dayList[0]++;
           dayList[1]++;
         }

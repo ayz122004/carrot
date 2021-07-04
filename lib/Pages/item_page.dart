@@ -44,7 +44,7 @@ class _ItemPageState extends State<ItemPage> {
     }
 
     Widget _dateTimeField() {
-      DateTime _dt = widget.item.getEndBy();
+      DateTime _dt = widget.item.getDeadline();
       String _dVal = _dt.day.toString(),
           _mVal = _dt.month.toString(),
           _yVal = _dt.year.toString(),
@@ -64,7 +64,7 @@ class _ItemPageState extends State<ItemPage> {
         myData.update();
         String str = "$_yVal-$_mVal-$_dVal $_hVal:$_minVal";
         _dt = DateTime.parse(str);
-        widget.item.setEndBy(_dt);
+        widget.item.setDeadline(_dt);
       }
 
       try {
