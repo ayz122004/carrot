@@ -11,7 +11,6 @@ class CreatePage extends StatelessWidget {
   final _c2 = TextEditingController();
   final _c3 = TextEditingController();
   final _c4 = TextEditingController();
-  final _c5 = TextEditingController(text: DateTime.now().toString());
   String _tt = "", _td = "", _rt = "", _rd = "";
   DateTime _dl = DateTime.now();
 
@@ -52,13 +51,13 @@ class CreatePage extends StatelessWidget {
       if (_dt.month < 10) _mVal = "0$_mVal";
       if (_dt.hour < 10) _hVal = "0$_hVal";
       if (_dt.minute < 10) _minVal = "0$_minVal";
-      var _dText = TextEditingController(text: _dVal),
-          _mText = TextEditingController(text: _mVal),
-          _yText = TextEditingController(text: _yVal),
-          _hText = TextEditingController(text: _hVal),
-          _minText = TextEditingController(text: _minVal);
+      var _dText = TextEditingController(text: _dl.day.toString()),
+          _mText = TextEditingController(text: _dl.month.toString()),
+          _yText = TextEditingController(text: _dl.year.toString()),
+          _hText = TextEditingController(text: _dl.hour.toString()),
+          _minText = TextEditingController(text: _dl.minute.toString());
+      
       void _update() {
-        myData.update();
         String str = "$_yVal-$_mVal-$_dVal $_hVal:$_minVal";
         _dt = DateTime.parse(str);
         _dl = _dt;
