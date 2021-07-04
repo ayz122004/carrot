@@ -18,4 +18,9 @@ class MyData with ChangeNotifier{
     notifyListeners();
     Fluttertoast.showToast(msg: "task added!");
   }
+
+  void update() {
+    notifyListeners();
+    print("update called");
+  }
 }

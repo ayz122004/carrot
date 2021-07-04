@@ -14,38 +14,7 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  // final _controller = TextEditingController();  
-
-  // Future<dynamic> _createDialog(BuildContext context) async {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text("Add a new task"),
-  //           content: TextField(
-  //             controller: _controller,
-  //             decoration: const InputDecoration(hintText: "Enter task"),
-  //           ),
-  //           actions: <Widget>[
-  //             TextButton(
-  //               child: const Text("ADD"),
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //                 _controller.clear;
-  //                 _addTaskItem(_controller.text);
-  //               },
-  //             ),
-  //             TextButton(
-  //               child: const Text("CANCEL"),
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //             )
-  //           ],
-  //         );
-  //       });
-  // }
-
+ 
   void _reorderTaskList(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
       newIndex -= 1;

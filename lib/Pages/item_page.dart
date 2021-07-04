@@ -31,6 +31,7 @@ class _ItemPageState extends State<ItemPage> {
 
   @override
   Widget build(BuildContext context) {
+    final myData = context.watch<MyData>();
     _taskTitleController =
         TextEditingController(text: widget.item.getTaskTitle());
     _taskDescController =
@@ -43,8 +44,10 @@ class _ItemPageState extends State<ItemPage> {
         TextEditingController(text: widget.item.getStartBy().toString());
     _endByController =
         TextEditingController(text: widget.item.getEndBy().toIso8601String());
-    _hoursController = TextEditingController(text: ((widget.item.getTimeSpent().inMinutes/60).round()).toString());
-    _minutesController = TextEditingController(text: (widget.item.getTimeSpent().inMinutes%60).toString());
+    _hoursController = TextEditingController(
+        text: ((widget.item.getTimeSpent().inMinutes / 60).round()).toString());
+    _minutesController = TextEditingController(
+        text: (widget.item.getTimeSpent().inMinutes % 60).toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -64,6 +67,7 @@ class _ItemPageState extends State<ItemPage> {
                     controller: _taskTitleController,
                     readOnly: widget.item.getIsComplete(),
                     onSubmitted: (value) {
+                      myData.update();
                       setState(() {
                         widget.item.setTaskTitle(_taskTitleController.text);
                       });
@@ -82,6 +86,7 @@ class _ItemPageState extends State<ItemPage> {
                   controller: _taskDescController,
                   readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
+                    myData.update();
                     setState(() {
                       widget.item.setTaskDesc(_taskDescController.text);
                     });
@@ -134,7 +139,8 @@ class _ItemPageState extends State<ItemPage> {
                   readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
                     setState(() {
-                      widget.item.setStartBy(DateTime.parse(_startByController.text));
+                      widget.item
+                          .setStartBy(DateTime.parse(_startByController.text));
                     });
                   },
                 ),
@@ -151,7 +157,8 @@ class _ItemPageState extends State<ItemPage> {
                   readOnly: widget.item.getIsComplete(),
                   onSubmitted: (value) {
                     setState(() {
-                      widget.item.setEndBy(DateTime.parse(_endByController.text));
+                      widget.item
+                          .setEndBy(DateTime.parse(_endByController.text));
                     });
                   },
                 ),
@@ -175,7 +182,8 @@ class _ItemPageState extends State<ItemPage> {
                   readOnly: !widget.item.getIsComplete(),
                   onFieldSubmitted: (value) {
                     setState(() {
-                      widget.item.setTimeSpent(Duration(hours: int.parse(_hoursController.text)));
+                      widget.item.setTimeSpent(
+                          Duration(hours: int.parse(_hoursController.text)));
                     });
                   },
                 ),
@@ -188,22 +196,36 @@ class _ItemPageState extends State<ItemPage> {
                   readOnly: !widget.item.getIsComplete(),
                   onFieldSubmitted: (value) {
                     setState(() {
-                      widget.item.addTimeSpent(Duration(minutes: int.parse(_minutesController.text)));
+                      widget.item.addTimeSpent(Duration(
+                          minutes: int.parse(_minutesController.text)));
                     });
                   },
                 ),
               ),
             ],
           ),
-          TextButton(
-            child: const Text(
-              "Delete",
-              //TODO: @ANNA set color based on getIsComplete()
-              style: TextStyle(color: Colors.red),
-            ),
-            onPressed: () {
-              widget.item.getIsComplete() ? null : _deleteItem();
-            },
+          Row(
+            children: [
+              TextButton(
+                child: const Text(
+                  "SAVE",
+                  style: TextStyle(color: Colors.blue),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text(
+                  "DELETE",
+                  //TODO: @ANNA set color based on getIsComplete()
+                  style: TextStyle(color: Colors.red),
+                ),
+                onPressed: () {
+                  widget.item.getIsComplete() ? null : _deleteItem();
+                },
+              ),
+            ],
           ),
         ],
       ),
