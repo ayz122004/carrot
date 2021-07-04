@@ -77,12 +77,13 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
       }
     }
 
+    //Daily Progress Bar
     Widget progressBar() {
       getDayList();
       if (dayList[1] == 0) {
-        //prevent zero division exception
+        //prevents zero division exception
         return const Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(16.0),
           child: Text("no tasks today"),
         );
       }
@@ -91,45 +92,60 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
         child: RotatedBox(
           quarterTurns: 1,
           child: Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-            child: BarChart(
-              BarChartData(
-                alignment: BarChartAlignment.spaceAround,
-                maxY: 100, 
-                axisTitleData: FlAxisTitleData(
-                  show: true,
-                  leftTitle: AxisTitle(
-                    showTitle: true,
-                    titleText: "Daily Progress Bar",
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8, 24, 8, 24),
+              child: BarChart(
+                BarChartData(
+                  alignment: BarChartAlignment.spaceAround,
+                  maxY: 100,
+                  axisTitleData: FlAxisTitleData(
+                    show: true,
+                    leftTitle: AxisTitle(
+                      showTitle: true,
+                      titleText: "Daily Progress Bar",
+                    ),
                   ),
-                ),
-                titlesData: FlTitlesData(
-                  show: true,
-                  bottomTitles: SideTitles(showTitles: false),
-                  leftTitles: SideTitles(showTitles: false),
-                  rightTitles: SideTitles(
-                    rotateAngle: 270,
-                    showTitles: true,
-                    margin: 20,
-                    getTitles: (double value) {
-                      if (value % 25 == 0) return value.toInt().toString();
-                      return "";
-                    },
+                  titlesData: FlTitlesData(
+                    show: true,
+                    bottomTitles: SideTitles(showTitles: false),
+                    leftTitles: SideTitles(showTitles: false),
+                    rightTitles: SideTitles(
+                      rotateAngle: 270,
+                      showTitles: true,
+                      margin: 20,
+                      getTitles: (double value) {
+                        if (value % 25 == 0) {
+                          return "${value.toInt().toString()}%";
+                        }
+                        return "";
+                      },
+                    ),
                   ),
-                ),
-                borderData: FlBorderData(
-                  show: false,
-                ),
-                barGroups: [
-                  BarChartGroupData(
-                    x: 0,
-                    barRods: [
-                      BarChartRodData(
-                          y: dayList[0] / dayList[1] * 100,
-                          colors: [Colors.lightBlueAccent, Colors.greenAccent])
-                    ],
+                  borderData: FlBorderData(
+                    show: false,
                   ),
-                ],
+                  barGroups: [
+                    BarChartGroupData(
+                      x: 0,
+                      barRods: [
+                        BarChartRodData(
+                          y: 100,
+                          colors: [Colors.black12],
+                          rodStackItems: [
+                            BarChartRodStackItem(
+                                0,
+                                (dayList[0] / dayList[1] * 100),
+                                Colors.lightBlue),
+                          ],
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -199,8 +215,70 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
     Widget monthChart() {
       //TODO: @ANY make this chart sideways
       getMonthList();
+      return RotatedBox(
+        quarterTurns: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: BarChart(
+            BarChartData(
+              alignment: BarChartAlignment.spaceAround,
+              maxY: 24,
+              axisTitleData: FlAxisTitleData(
+                show: true,
+                rightTitle: AxisTitle(
+                  showTitle: true,
+                  titleText: "Hours",
+                ),               
+              ),
+              titlesData: FlTitlesData(
+                show: true,
+                leftTitles: SideTitles(showTitles: false),
+                rightTitles: SideTitles(
+                    rotateAngle: 270,
+                    showTitles: true,
+                    getTitles: (double value) {
+                      if (value.toInt().isEven) return value.toInt().toString();
+                      return "";
+                    }
+                    //margin: 20;
+                    ),
+                bottomTitles: SideTitles(
+                  rotateAngle: 270,
+                  showTitles: true,
+                  getTextStyles: (value) => const TextStyle(
+                      color: Color(0xff7589a2),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14),
+                  margin: 20,
+                  getTitles: (double value) {
+                    return (value + 1).toInt().toString();
+                  },
+                ),
+              ),
+              borderData: FlBorderData(
+                show: false,
+              ),
+              barGroups: [
+                for (int i = 0; i < 31; i++)
+                  BarChartGroupData(
+                    x: i,
+                    barRods: [
+                      BarChartRodData(
+                          y: (monthList[i] / 60),
+                          colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                    ],
+                  ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget yearChart() {
+      getYearList();
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(8, 16, 16, 16),
         child: BarChart(
           BarChartData(
             alignment: BarChartAlignment.spaceAround,
@@ -220,55 +298,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                 getTextStyles: (value) => const TextStyle(
                     color: Color(0xff7589a2),
                     fontWeight: FontWeight.bold,
-                    fontSize: 14),
-                margin: 20,
-                getTitles: (double value) {
-                  return (value + 1).toInt().toString();
-                },
-              ),
-            ),
-            borderData: FlBorderData(
-              show: false,
-            ),
-            barGroups: [
-              for (int i = 0; i < 31; i++)
-                BarChartGroupData(
-                  x: i,
-                  barRods: [
-                    BarChartRodData(
-                        y: (monthList[i] / 60),
-                        colors: [Colors.lightBlueAccent, Colors.greenAccent])
-                  ],
-                ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    Widget yearChart() {
-      getYearList();
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BarChart(
-          BarChartData(
-            alignment: BarChartAlignment.spaceAround,
-            maxY: 24,
-            titlesData: FlTitlesData(
-              show: true,
-              leftTitles: SideTitles(
-                  showTitles: true,
-                  getTitles: (double value) {
-                    return value.toString();
-                  }
-                  //margin: 20;
-                  ),
-              bottomTitles: SideTitles(
-                showTitles: true,
-                getTextStyles: (value) => const TextStyle(
-                    color: Color(0xff7589a2),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14),
+                    fontSize: 12),
                 margin: 20,
                 getTitles: (double value) {
                   List<String> _months = [
