@@ -65,14 +65,14 @@ class CreatePage extends StatelessWidget {
 
       try {
         return Card(
+          color: Theme.of(context).colorScheme.surface,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const Text("Deadline: "),
-
+                  const Text("Deadline: ", style: TextStyle(fontSize: 16)),
                   //Date
                   SizedBox(
                     width: 32,
@@ -187,13 +187,14 @@ class CreatePage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.teal[700],
+          backgroundColor: Theme.of(context).colorScheme.secondaryVariant,
           centerTitle: true,
           title: const Text("Create Task Item"),
         ),
         body: Column(
           children: [
             Card(
+              color: Theme.of(context).colorScheme.surface,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -207,6 +208,7 @@ class CreatePage extends StatelessWidget {
               ),
             ),
             Card(
+              color: Theme.of(context).colorScheme.surface,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -220,6 +222,7 @@ class CreatePage extends StatelessWidget {
               ),
             ),
             Card(
+              color: Theme.of(context).colorScheme.surface,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -232,6 +235,7 @@ class CreatePage extends StatelessWidget {
               ),
             ),
             Card(
+              color: Theme.of(context).colorScheme.surface,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(

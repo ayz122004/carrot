@@ -26,6 +26,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: "Hackathon App",
       theme: ThemeData(
+        cardTheme: CardTheme(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        ),
         colorScheme: const ColorScheme(
           primary: Color(0xfff77156),
           primaryVariant: Color(0xffbf402c),
@@ -39,11 +42,9 @@ class _MyAppState extends State<MyApp> {
           onError: Color(0xff000000),
           brightness: Brightness.dark,
           onBackground: Color(0xffffffff),
-          onSurface: Color(0xff000000),
+          onSurface: Color(0xffffa283),
 
-        ),
-        // primaryColor: const Color(0xfff77156),
-        // accentColor: const Color(0xff81c784),
+        ),        
       ),
       home: Home(),
     );

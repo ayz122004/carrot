@@ -112,8 +112,6 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
         child: RotatedBox(
           quarterTurns: 1,
           child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8, 24, 8, 24),
               child: BarChart(

@@ -74,7 +74,12 @@ class _ItemPageState extends State<ItemPage> {
             padding: const EdgeInsets.all(12.0),
             child: Row(
               children: [
-                const Text("Deadline: "),
+                const Text(
+                  "Deadline: ",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
 
                 //Date
                 SizedBox(
@@ -208,7 +213,7 @@ class _ItemPageState extends State<ItemPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.secondaryVariant,
         title: const Text("Edit Task"),
       ),
       //TODO: @ANGELINA customize body based on completion status
