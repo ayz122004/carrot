@@ -68,97 +68,99 @@ class _ItemPageState extends State<ItemPage> {
       }
 
       try {
-        return Container(
-          color: Colors.teal[400],
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            children: [
-              const Text("Deadline: "),
-
-              //Date
-              SizedBox(
-                width: 32,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _dText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "DD"),
-                  readOnly: widget.item.getIsComplete(),
-                  onFieldSubmitted: (value) {
-                    _dVal = _dText.text;
-                    if (_dVal.length < 2) _dVal = "0$_dVal";
-                    _update();
-                  },
+        return Card(
+          child: Container(
+            color: Theme.of(context).colorScheme.surface,
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                const Text("Deadline: "),
+        
+                //Date
+                SizedBox(
+                  width: 32,
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    controller: _dText,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(hintText: "DD"),
+                    readOnly: widget.item.getIsComplete(),
+                    onFieldSubmitted: (value) {
+                      _dVal = _dText.text;
+                      if (_dVal.length < 2) _dVal = "0$_dVal";
+                      _update();
+                    },
+                  ),
                 ),
-              ),
-
-              //Month
-              SizedBox(
-                width: 32,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _mText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "MM"),
-                  readOnly: widget.item.getIsComplete(),
-                  onFieldSubmitted: (value) {
-                    _mVal = _mText.text;
-                    if (_mVal.length < 2) _mVal = "0$_mVal";
-                    _update();
-                  },
+        
+                //Month
+                SizedBox(
+                  width: 32,
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    controller: _mText,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(hintText: "MM"),
+                    readOnly: widget.item.getIsComplete(),
+                    onFieldSubmitted: (value) {
+                      _mVal = _mText.text;
+                      if (_mVal.length < 2) _mVal = "0$_mVal";
+                      _update();
+                    },
+                  ),
                 ),
-              ),
-
-              //Year
-              SizedBox(
-                width: 64,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _yText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "YYYY"),
-                  readOnly: widget.item.getIsComplete(),
-                  onFieldSubmitted: (value) {
-                    _yVal = _yText.text;
-                    _update();
-                  },
+        
+                //Year
+                SizedBox(
+                  width: 64,
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    controller: _yText,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(hintText: "YYYY"),
+                    readOnly: widget.item.getIsComplete(),
+                    onFieldSubmitted: (value) {
+                      _yVal = _yText.text;
+                      _update();
+                    },
+                  ),
                 ),
-              ),
-
-              //Hour
-              SizedBox(
-                width: 32,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _hText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "hh"),
-                  readOnly: widget.item.getIsComplete(),
-                  onFieldSubmitted: (value) {
-                    _hVal = _hText.text;
-                    if (_hVal.length < 2) _hVal = "0$_hVal";
-                    _update();
-                  },
+        
+                //Hour
+                SizedBox(
+                  width: 32,
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    controller: _hText,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(hintText: "hh"),
+                    readOnly: widget.item.getIsComplete(),
+                    onFieldSubmitted: (value) {
+                      _hVal = _hText.text;
+                      if (_hVal.length < 2) _hVal = "0$_hVal";
+                      _update();
+                    },
+                  ),
                 ),
-              ),
-
-              //Minute
-              SizedBox(
-                width: 32,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _minText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "mm"),
-                  readOnly: widget.item.getIsComplete(),
-                  onFieldSubmitted: (value) {
-                    _minVal = _minText.text;
-                    if (_minVal.length < 2) _minVal = "0$_minVal";
-                    _update();
-                  },
+        
+                //Minute
+                SizedBox(
+                  width: 32,
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    controller: _minText,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(hintText: "mm"),
+                    readOnly: widget.item.getIsComplete(),
+                    onFieldSubmitted: (value) {
+                      _minVal = _minText.text;
+                      if (_minVal.length < 2) _minVal = "0$_minVal";
+                      _update();
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       } catch (e) {
@@ -175,145 +177,147 @@ class _ItemPageState extends State<ItemPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal[900],
-        title: const Text("Item Page"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: const Text("Edit Task"),
       ),
       //TODO: @ANGELINA customize body based on completion status
       body: ListView(
         children: [
-          Container(
-            color: Colors.teal[50],
-            padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              decoration: const InputDecoration(hintText: "Task Title"),
-              controller: _ttController,
-              readOnly: widget.item.getIsComplete(),
-              onSubmitted: (value) {
-                myData.update();
-                setState(() {
-                  widget.item.setTaskTitle(_ttController.text);
-                });
-              },
+          Card(
+            child: Container(
+              color: Theme.of(context).colorScheme.surface,
+              padding: const EdgeInsets.all(16),
+              child: TextField(
+                decoration: const InputDecoration(hintText: "Enter task title"),
+                controller: _ttController,
+                readOnly: widget.item.getIsComplete(),
+                onSubmitted: (value) {
+                  myData.update();
+                  setState(() {
+                    widget.item.setTaskTitle(_ttController.text);
+                  });
+                },
+              ),
             ),
           ),
-          Container(
-            color: Colors.teal[100],
-            padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              decoration: const InputDecoration(hintText: "Task Description"),
-              controller: _tdController,
-              readOnly: widget.item.getIsComplete(),
-              onSubmitted: (value) {
-                myData.update();
-                setState(() {
-                  widget.item.setTaskDesc(_tdController.text);
-                });
-              },
+          Card(
+            child: Container(
+              color: Theme.of(context).colorScheme.surface,
+              padding: const EdgeInsets.all(12.0),
+              child: TextField(
+                decoration:
+                    const InputDecoration(hintText: "Enter task description"),
+                controller: _tdController,
+                readOnly: widget.item.getIsComplete(),
+                onSubmitted: (value) {
+                  myData.update();
+                  setState(() {
+                    widget.item.setTaskDesc(_tdController.text);
+                  });
+                },
+              ),
             ),
           ),
-          Container(
-            color: Colors.teal[200],
-            padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              decoration: const InputDecoration(hintText: "Reward Title"),
-              controller: _rtController,
-              readOnly: widget.item.getIsComplete(),
-              onSubmitted: (value) {
-                myData.update();
-                setState(() {
-                  widget.item.setRewardTitle(_rtController.text);
-                });
-              },
+          Card(
+            child: Container(
+              color: Theme.of(context).colorScheme.surface,
+              padding: const EdgeInsets.all(12.0),
+              child: TextField(
+                decoration:
+                    const InputDecoration(hintText: "Enter reward title"),
+                controller: _rtController,
+                readOnly: widget.item.getIsComplete(),
+                onSubmitted: (value) {
+                  myData.update();
+                  setState(() {
+                    widget.item.setRewardTitle(_rtController.text);
+                  });
+                },
+              ),
             ),
           ),
-          Container(
-            color: Colors.teal[300],
-            padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              decoration: const InputDecoration(hintText: "Reward Description"),
-              controller: _rdController,
-              readOnly: widget.item.getIsComplete(),
-              onSubmitted: (value) {
-                myData.update();
-                setState(() {
-                  widget.item.setRewardDesc(_rdController.text);
-                });
-              },
+          Card(
+            child: Container(
+              color: Theme.of(context).colorScheme.surface,
+              padding: const EdgeInsets.all(12.0),
+              child: TextField(
+                decoration:
+                    const InputDecoration(hintText: "Enter reward description"),
+                controller: _rdController,
+                readOnly: widget.item.getIsComplete(),
+                onSubmitted: (value) {
+                  myData.update();
+                  setState(() {
+                    widget.item.setRewardDesc(_rdController.text);
+                  });
+                },
+              ),
             ),
           ),
           _dateTimeField(),
-          // Container(
-          //   color: Colors.teal,
-          //   padding: const EdgeInsets.all(12.0),
-          //   child: TextField(
-          //     decoration:
-          //         const InputDecoration(hintText: "End By: (2000-01-01)"),
-          //     controller: _ebController,
-          //     readOnly: widget.item.getIsComplete(),
-          //     onSubmitted: (value) {
-          //       myData.update();
-          //       setState(() {
-          //         widget.item.setEndBy(DateTime.parse(_ebController.text));
-          //       });
-          //     },
-          //   ),
-          // ),
-          Container(
-            color: Colors.teal[500],
-            padding: const EdgeInsets.fromLTRB(
-              12.0,
-              25.0,
-              25.0,
-              25.0,
-            ),
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Task Complete: ${widget.item.getIsComplete()}",
-              style: const TextStyle(fontSize: 16),
+          Card(
+            child: Container(
+              color: Theme.of(context).colorScheme.surface,
+              padding: const EdgeInsets.fromLTRB(
+                12.0,
+                25.0,
+                25.0,
+                25.0,
+              ),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Task Complete: ${widget.item.getIsComplete()}",
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.right,
+              ),
             ),
           ),
 
           //timeSpent fields
-          Container(
-            color: Colors.teal[600],
-            padding: const EdgeInsets.fromLTRB(
-              12.0,
-              8.0,
-              8.0,
-              17.0,
-            ),
-            child: Row(
-              children: [
-                const Text("Time Spent: "),
-                SizedBox(
-                  width: 64,
-                  child: TextFormField(
-                    textAlign: TextAlign.center,
-                    controller: _hController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(suffixText: "hrs"),
-                    readOnly: !widget.item.getIsComplete(),
-                    onFieldSubmitted: (value) {
-                      _tsHours = int.parse(_hController.text);
-                      _updateTimeSpent();
-                    },
+          Card(
+            child: Container(
+              color: Theme.of(context).colorScheme.surface,
+              padding: const EdgeInsets.fromLTRB(
+                12.0,
+                8.0,
+                8.0,
+                17.0,
+              ),
+              child: Row(
+                children: [
+                  const Text("Time Spent: "),
+                  SizedBox(
+                    width: 64,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: _hController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(suffixText: "hrs"),
+                      readOnly: !widget.item.getIsComplete(),
+                      onFieldSubmitted: (value) {
+                        _tsHours = int.parse(_hController.text);
+                        _updateTimeSpent();
+                      },
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 64,
-                  child: TextFormField(
-                    decoration: const InputDecoration(suffixText: "min"),
-                    textAlign: TextAlign.center,
-                    controller: _mController,
-                    keyboardType: TextInputType.number,
-                    readOnly: !widget.item.getIsComplete(),
-                    onFieldSubmitted: (value) {
-                      _tsMinutes = int.parse(_mController.text);
-                      _updateTimeSpent();
-                    },
+                  SizedBox(
+                    width: 64,
+                    child: TextFormField(
+                      decoration: const InputDecoration(suffixText: "min"),
+                      textAlign: TextAlign.center,
+                      controller: _mController,
+                      keyboardType: TextInputType.number,
+                      readOnly: !widget.item.getIsComplete(),
+                      onFieldSubmitted: (value) {
+                        _tsMinutes = int.parse(_mController.text);
+                        _updateTimeSpent();
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Container(
