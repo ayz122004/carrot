@@ -56,7 +56,7 @@ class CreatePage extends StatelessWidget {
           _yText = TextEditingController(text: _dl.year.toString()),
           _hText = TextEditingController(text: _dl.hour.toString()),
           _minText = TextEditingController(text: _dl.minute.toString());
-      
+
       void _update() {
         String str = "$_yVal-$_mVal-$_dVal $_hVal:$_minVal";
         _dt = DateTime.parse(str);
@@ -64,90 +64,120 @@ class CreatePage extends StatelessWidget {
       }
 
       try {
-        return Container(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Text("Deadline: "),
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  const Text("Deadline: "),
 
-              //Date
-              SizedBox(
-                width: 32,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _dText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "DD"),
-                  onFieldSubmitted: (value) {
-                    _dVal = _dText.text;
-                    if (_dVal.length < 2) _dVal = "0$_dVal";
-                    _update();
-                  },
-                ),
-              ),
+                  //Date
+                  SizedBox(
+                    width: 32,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: _dText,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        hintText: "DD",
+                        hintStyle: TextStyle(
+                          fontSize: 12,
+                        ),
+                        suffix: Text("-",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                      onFieldSubmitted: (value) {
+                        _dVal = _dText.text;
+                        if (_dVal.length < 2) _dVal = "0$_dVal";
+                        _update();
+                      },
+                    ),
+                  ),
 
-              //Month
-              SizedBox(
-                width: 32,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _mText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "MM"),
-                  onFieldSubmitted: (value) {
-                    _mVal = _mText.text;
-                    if (_mVal.length < 2) _mVal = "0$_mVal";
-                    _update();
-                  },
-                ),
-              ),
+                  //Month
+                  SizedBox(
+                    width: 32,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: _mText,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        hintText: "MM",
+                        hintStyle: TextStyle(
+                          fontSize: 12,
+                        ),
+                        suffix: Text("-",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                      onFieldSubmitted: (value) {
+                        _mVal = _mText.text;
+                        if (_mVal.length < 2) _mVal = "0$_mVal";
+                        _update();
+                      },
+                    ),
+                  ),
 
-              //Year
-              SizedBox(
-                width: 64,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _yText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "YYYY"),
-                  onFieldSubmitted: (value) {
-                    _yVal = _yText.text;
-                    _update();
-                  },
-                ),
-              ),
-              //Hour
-              SizedBox(
-                width: 32,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _hText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "hh"),
-                  onFieldSubmitted: (value) {
-                    _hVal = _hText.text;
-                    if (_hVal.length < 2) _hVal = "0$_hVal";
-                    _update();
-                  },
-                ),
-              ),
+                  //Year
+                  SizedBox(
+                    width: 52,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: _yText,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(hintText: "YYYY"),
+                      onFieldSubmitted: (value) {
+                        _yVal = _yText.text;
+                        _update();
+                      },
+                    ),
+                  ),
+                  //Hour
+                  SizedBox(
+                    width: 32,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: _hText,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        hintText: "hh",
+                        hintStyle: TextStyle(fontSize: 12),
+                        suffix: Text(":",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                      onFieldSubmitted: (value) {
+                        _hVal = _hText.text;
+                        if (_hVal.length < 2) _hVal = "0$_hVal";
+                        _update();
+                      },
+                    ),
+                  ),
 
-              //Minute
-              SizedBox(
-                width: 32,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: _minText,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: "mm"),
-                  onFieldSubmitted: (value) {
-                    _minVal = _minText.text;
-                    if (_minVal.length < 2) _minVal = "0$_minVal";
-                    _update();
-                  },
-                ),
+                  //Minute
+                  SizedBox(
+                    width: 32,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      controller: _minText,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(hintText: "mm"),
+                      onFieldSubmitted: (value) {
+                        _minVal = _minText.text;
+                        if (_minVal.length < 2) _minVal = "0$_minVal";
+                        _update();
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         );
       } catch (e) {
@@ -163,33 +193,56 @@ class CreatePage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            TextFormField(
-              controller: _c1,
-              decoration: const InputDecoration(hintText: "enter task"),
-              onFieldSubmitted: (value) {
-                _tt = _c1.text;
-              },
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _c1,
+                  decoration:
+                      const InputDecoration(hintText: "Enter task title"),
+                  onFieldSubmitted: (value) {
+                    _tt = _c1.text;
+                  },
+                ),
+              ),
             ),
-            TextFormField(
-              controller: _c2,
-              decoration: const InputDecoration(hintText: "task description"),
-              onFieldSubmitted: (value) {
-                _td = _c2.text;
-              },
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _c2,
+                  decoration:
+                      const InputDecoration(hintText: "Enter task description"),
+                  onFieldSubmitted: (value) {
+                    _td = _c2.text;
+                  },
+                ),
+              ),
             ),
-            TextFormField(
-              controller: _c3,
-              decoration: const InputDecoration(hintText: "enter reward"),
-              onFieldSubmitted: (value) {
-                _rt = _c3.text;
-              },
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _c3,
+                  decoration: const InputDecoration(hintText: "Enter reward"),
+                  onFieldSubmitted: (value) {
+                    _rt = _c3.text;
+                  },
+                ),
+              ),
             ),
-            TextFormField(
-              controller: _c4,
-              decoration: const InputDecoration(hintText: "reward description"),
-              onFieldSubmitted: (value) {
-                _rd = _c4.text;
-              },
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _c4,
+                  decoration: const InputDecoration(
+                      hintText: "Enter reward description"),
+                  onFieldSubmitted: (value) {
+                    _rd = _c4.text;
+                  },
+                ),
+              ),
             ),
             _dateTimeField(),
             Row(

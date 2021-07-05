@@ -84,8 +84,14 @@ class _ItemPageState extends State<ItemPage> {
                     controller: _dText,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                      suffix: Text("-"),
+                      suffix: Text("-",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          )),
                       hintText: "DD",
+                      hintStyle: TextStyle(
+                        fontSize: 12,
+                      ),
                     ),
                     readOnly: widget.item.getIsComplete(),
                     onSubmitted: (value) {
@@ -105,7 +111,13 @@ class _ItemPageState extends State<ItemPage> {
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       hintText: "MM",
-                      suffix: Text("-"),
+                      hintStyle: TextStyle(
+                        fontSize: 12,
+                      ),
+                      suffix: Text("-",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          )),
                     ),
                     readOnly: widget.item.getIsComplete(),
                     onSubmitted: (value) {
@@ -119,13 +131,16 @@ class _ItemPageState extends State<ItemPage> {
                 //Year
                 SizedBox(
                   width: 52,
-                  child: TextFormField(
+                  child: TextField(
                     textAlign: TextAlign.center,
                     controller: _yText,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(hintText: "YYYY"),
+                    decoration: const InputDecoration(
+                      hintText: "YYYY",
+                      hintStyle: TextStyle(fontSize: 12),
+                    ),
                     readOnly: widget.item.getIsComplete(),
-                    onFieldSubmitted: (value) {
+                    onSubmitted: (value) {
                       _yVal = _yText.text;
                       _update();
                     },
@@ -135,16 +150,20 @@ class _ItemPageState extends State<ItemPage> {
                 //Hour
                 SizedBox(
                   width: 32,
-                  child: TextFormField(
+                  child: TextField(
                     textAlign: TextAlign.center,
                     controller: _hText,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       hintText: "hh",
-                      suffix: Text(":"),
+                      hintStyle: TextStyle(fontSize: 12),
+                      suffix: Text(":",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          )),
                     ),
                     readOnly: widget.item.getIsComplete(),
-                    onFieldSubmitted: (value) {
+                    onSubmitted: (value) {
                       _hVal = _hText.text;
                       if (_hVal.length < 2) _hVal = "0$_hVal";
                       _update();
@@ -155,13 +174,16 @@ class _ItemPageState extends State<ItemPage> {
                 //Minute
                 SizedBox(
                   width: 32,
-                  child: TextFormField(
+                  child: TextField(
                     textAlign: TextAlign.center,
                     controller: _minText,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(hintText: "mm"),
+                    decoration: const InputDecoration(
+                      hintText: "mm",
+                      hintStyle: TextStyle(fontSize: 12),
+                    ),
                     readOnly: widget.item.getIsComplete(),
-                    onFieldSubmitted: (value) {
+                    onSubmitted: (value) {
                       _minVal = _minText.text;
                       if (_minVal.length < 2) _minVal = "0$_minVal";
                       _update();
@@ -186,7 +208,7 @@ class _ItemPageState extends State<ItemPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         title: const Text("Edit Task"),
       ),
       //TODO: @ANGELINA customize body based on completion status
@@ -299,13 +321,13 @@ class _ItemPageState extends State<ItemPage> {
                   const Text("Time Spent: "),
                   SizedBox(
                     width: 64,
-                    child: TextFormField(
+                    child: TextField(
                       textAlign: TextAlign.center,
                       controller: _hController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(suffixText: "hrs"),
                       readOnly: !widget.item.getIsComplete(),
-                      onFieldSubmitted: (value) {
+                      onSubmitted: (value) {
                         _tsHours = int.parse(_hController.text);
                         _updateTimeSpent();
                       },
@@ -313,13 +335,13 @@ class _ItemPageState extends State<ItemPage> {
                   ),
                   SizedBox(
                     width: 64,
-                    child: TextFormField(
+                    child: TextField(
                       decoration: const InputDecoration(suffixText: "min"),
                       textAlign: TextAlign.center,
                       controller: _mController,
                       keyboardType: TextInputType.number,
                       readOnly: !widget.item.getIsComplete(),
-                      onFieldSubmitted: (value) {
+                      onSubmitted: (value) {
                         _tsMinutes = int.parse(_mController.text);
                         _updateTimeSpent();
                       },
@@ -329,14 +351,8 @@ class _ItemPageState extends State<ItemPage> {
               ),
             ),
           ),
-          Container(
-            color: Colors.grey[50],
-            padding: const EdgeInsets.fromLTRB(
-              12.0,
-              15.0,
-              5.0,
-              20.0,
-            ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
                 TextButton(
