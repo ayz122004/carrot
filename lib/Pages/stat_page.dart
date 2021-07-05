@@ -98,7 +98,13 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
         //prevents zero division exception
         return const Padding(
           padding: EdgeInsets.all(16.0),
-          child: Text("no tasks today"),
+          child: Text(
+            "no tasks today",
+            style: TextStyle(
+                color: Color(0xff7589a2),
+                fontWeight: FontWeight.bold,
+                fontSize: 14),
+          ),
         );
       }
       return AspectRatio(
