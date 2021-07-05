@@ -75,44 +75,50 @@ class _ItemPageState extends State<ItemPage> {
             child: Row(
               children: [
                 const Text("Deadline: "),
-        
+
                 //Date
                 SizedBox(
                   width: 32,
-                  child: TextFormField(
+                  child: TextField(
                     textAlign: TextAlign.center,
                     controller: _dText,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(hintText: "DD"),
+                    decoration: const InputDecoration(
+                      suffix: Text("-"),
+                      hintText: "DD",
+                    ),
                     readOnly: widget.item.getIsComplete(),
-                    onFieldSubmitted: (value) {
+                    onSubmitted: (value) {
                       _dVal = _dText.text;
                       if (_dVal.length < 2) _dVal = "0$_dVal";
                       _update();
                     },
                   ),
                 ),
-        
+
                 //Month
                 SizedBox(
                   width: 32,
-                  child: TextFormField(
+                  child: TextField(
                     textAlign: TextAlign.center,
                     controller: _mText,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(hintText: "MM"),
+                    decoration: const InputDecoration(
+                      hintText: "MM",
+                      suffix: Text("-"),
+                    ),
                     readOnly: widget.item.getIsComplete(),
-                    onFieldSubmitted: (value) {
+                    onSubmitted: (value) {
                       _mVal = _mText.text;
                       if (_mVal.length < 2) _mVal = "0$_mVal";
                       _update();
                     },
                   ),
                 ),
-        
+
                 //Year
                 SizedBox(
-                  width: 64,
+                  width: 52,
                   child: TextFormField(
                     textAlign: TextAlign.center,
                     controller: _yText,
@@ -125,7 +131,7 @@ class _ItemPageState extends State<ItemPage> {
                     },
                   ),
                 ),
-        
+
                 //Hour
                 SizedBox(
                   width: 32,
@@ -133,7 +139,10 @@ class _ItemPageState extends State<ItemPage> {
                     textAlign: TextAlign.center,
                     controller: _hText,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(hintText: "hh"),
+                    decoration: const InputDecoration(
+                      hintText: "hh",
+                      suffix: Text(":"),
+                    ),
                     readOnly: widget.item.getIsComplete(),
                     onFieldSubmitted: (value) {
                       _hVal = _hText.text;
@@ -142,7 +151,7 @@ class _ItemPageState extends State<ItemPage> {
                     },
                   ),
                 ),
-        
+
                 //Minute
                 SizedBox(
                   width: 32,
