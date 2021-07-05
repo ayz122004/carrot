@@ -69,7 +69,8 @@ class _ItemPageState extends State<ItemPage> {
 
       try {
         return Container(
-          padding: const EdgeInsets.all(8.0),
+          color: Colors.teal[400],
+          padding: const EdgeInsets.all(12.0),
           child: Row(
             children: [
               const Text("Deadline: "),
@@ -258,8 +259,13 @@ class _ItemPageState extends State<ItemPage> {
           //   ),
           // ),
           Container(
-            color: Colors.teal[600],
-            padding: const EdgeInsets.all(27.0),
+            color: Colors.teal[500],
+            padding: const EdgeInsets.fromLTRB(
+              12.0,
+              25.0,
+              25.0,
+              25.0,
+            ),
             alignment: Alignment.centerLeft,
             child: Text(
               "Task Complete: ${widget.item.getIsComplete()}",
@@ -269,8 +275,13 @@ class _ItemPageState extends State<ItemPage> {
 
           //timeSpent fields
           Container(
-            color: Colors.teal[700],
-            padding: const EdgeInsets.all(7.0),
+            color: Colors.teal[600],
+            padding: const EdgeInsets.fromLTRB(
+              12.0,
+              8.0,
+              8.0,
+              17.0,
+            ),
             child: Row(
               children: [
                 const Text("Time Spent: "),
@@ -306,8 +317,13 @@ class _ItemPageState extends State<ItemPage> {
             ),
           ),
           Container(
-            color: Colors.white,
-            padding: const EdgeInsets.all(12.0),
+            color: Colors.grey[50],
+            padding: const EdgeInsets.fromLTRB(
+              12.0,
+              15.0,
+              5.0,
+              20.0,
+            ),
             child: Row(
               children: [
                 TextButton(
