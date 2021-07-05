@@ -96,12 +96,12 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
       getDayList();
       if (dayList[1] == 0) {
         //prevents zero division exception
-        return const Padding(
+        return Padding(
           padding: EdgeInsets.all(16.0),
           child: Text(
             "no tasks today",
             style: TextStyle(
-                color: Color(0xff7589a2),
+                color: Theme.of(context).colorScheme.onSecondary,
                 fontWeight: FontWeight.bold,
                 fontSize: 14),
           ),
@@ -122,8 +122,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                     show: true,
                     leftTitle: AxisTitle(
                       showTitle: true,
-                      textStyle: const TextStyle(
-                          color: Color(0xff0090a2),
+                      textStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary,
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
                       titleText: "Daily Progress Bar",
@@ -137,8 +137,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                       rotateAngle: 270,
                       showTitles: true,
                       margin: 20,
-                      getTextStyles: (value) => const TextStyle(
-                          color: Color(0xff7589a2),
+                      getTextStyles: (value) => TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary,
                           fontWeight: FontWeight.bold,
                           fontSize: 12),
                       getTitles: (double value) {
@@ -158,12 +158,13 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                       barRods: [
                         BarChartRodData(
                           y: 100,
-                          colors: [Colors.black12],
+                          colors: [const Color(0xffb2dfdb)],
                           rodStackItems: [
                             BarChartRodStackItem(
-                                0,
-                                (dayList[0] / dayList[1] * 100),
-                                Colors.lightBlue),
+                              0,
+                              (dayList[0] / dayList[1] * 100),
+                              Theme.of(context).colorScheme.onPrimary,
+                            ),
                           ],
                           borderRadius:
                               const BorderRadius.all(Radius.circular(16)),
@@ -193,16 +194,16 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
               rightTitle: AxisTitle(
                 showTitle: true,
                 titleText: "Hours",
-                textStyle: const TextStyle(
-                    color: Color(0xff0090a2),
+                textStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSecondary,
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
               ),
               topTitle: AxisTitle(
                 showTitle: true,
                 titleText: "This Week",
-                textStyle: const TextStyle(
-                    color: Color(0xff0090a2),
+                textStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSecondary,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
@@ -211,8 +212,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
               show: true,
               leftTitles: SideTitles(
                   showTitles: true,
-                  getTextStyles: (value) => const TextStyle(
-                      color: Color(0xff7589a2),
+                  getTextStyles: (value) => TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                       fontSize: 14),
                   getTitles: (double value) {
@@ -223,8 +224,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                   ),
               bottomTitles: SideTitles(
                 showTitles: true,
-                getTextStyles: (value) => const TextStyle(
-                    color: Color(0xff7589a2),
+                getTextStyles: (value) => TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
                 margin: 20,
@@ -252,7 +253,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                   barRods: [
                     BarChartRodData(
                         y: (weekList[i] / 60),
-                        colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                        colors: [Theme.of(context).colorScheme.onPrimary])
                   ],
                 ),
             ],
@@ -277,15 +278,15 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                 rightTitle: AxisTitle(
                   showTitle: true,
                   titleText: "Hours",
-                  textStyle: const TextStyle(
-                      color: Color(0xff0090a2),
+                  textStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary,
                       fontWeight: FontWeight.bold,
                       fontSize: 14),
                 ),
                 leftTitle: AxisTitle(
                   showTitle: true,
-                  textStyle: const TextStyle(
-                      color: Color(0xff0090a2),
+                  textStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
                   titleText: _months[today.month - 1],
@@ -295,8 +296,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                 show: true,
                 topTitles: SideTitles(
                   showTitles: true,
-                  getTextStyles: (value) => const TextStyle(
-                      color: Color(0xff7589a2),
+                  getTextStyles: (value) => TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                       fontSize: 14),
                   margin: 20,
@@ -308,8 +309,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                 rightTitles: SideTitles(
                     rotateAngle: 270,
                     showTitles: true,
-                    getTextStyles: (value) => const TextStyle(
-                        color: Color(0xff7589a2),
+                    getTextStyles: (value) => TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
                         fontWeight: FontWeight.bold,
                         fontSize: 14),
                     margin: 20,
@@ -322,8 +323,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                 bottomTitles: SideTitles(
                   rotateAngle: 270,
                   showTitles: true,
-                  getTextStyles: (value) => const TextStyle(
-                      color: Color(0xff7589a2),
+                  getTextStyles: (value) => TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                       fontSize: 14),
                   margin: 20,
@@ -342,7 +343,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                     barRods: [
                       BarChartRodData(
                           y: (monthList[i] / 60),
-                          colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                          colors: [Theme.of(context).colorScheme.onPrimary])
                     ],
                   ),
               ],
@@ -365,16 +366,16 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
               rightTitle: AxisTitle(
                 showTitle: true,
                 titleText: "Hours",
-                textStyle: const TextStyle(
-                    color: Color(0xff0090a2),
+                textStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSecondary,
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
               ),
               topTitle: AxisTitle(
                 showTitle: true,
                 titleText: today.year.toString(),
-                textStyle: const TextStyle(
-                    color: Color(0xff0090a2),
+                textStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
@@ -383,8 +384,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
               show: true,
               leftTitles: SideTitles(
                   showTitles: true,
-                  getTextStyles: (value) => const TextStyle(
-                      color: Color(0xff7589a2),
+                  getTextStyles: (value) => TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                       fontSize: 14),
                   getTitles: (double value) {
@@ -395,8 +396,8 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                   ),
               bottomTitles: SideTitles(
                 showTitles: true,
-                getTextStyles: (value) => const TextStyle(
-                    color: Color(0xff7589a2),
+                getTextStyles: (value) => TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
                     fontWeight: FontWeight.bold,
                     fontSize: 12),
                 margin: 20,
@@ -415,7 +416,7 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
                   barRods: [
                     BarChartRodData(
                         y: (yearList[i] / 60),
-                        colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                        colors: [Theme.of(context).colorScheme.onPrimary])
                   ],
                 ),
             ],
@@ -426,7 +427,9 @@ class _StatPageState extends State<StatPage> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Stats Page"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: CustomScrollView(
         slivers: <Widget>[

@@ -32,19 +32,18 @@ class _MyAppState extends State<MyApp> {
         colorScheme: const ColorScheme(
           primary: Color(0xfff77156),
           primaryVariant: Color(0xffbf402c),
-          onPrimary: Color(0xff000000),
+          onPrimary: Color(0xffff7156),
           secondaryVariant: Color(0xff00796b),
           secondary: Color(0xff48a999),
-          onSecondary: Color(0xff000000),
+          onSecondary: Color(0xff5df2d6),
           background: Color(0xffd9f8f2),
           error: Color(0xffeeeeee),
           surface: Color(0xff37474f),
           onError: Color(0xff000000),
           brightness: Brightness.dark,
           onBackground: Color(0xffffffff),
-          onSurface: Color(0xffffa283),
-
-        ),        
+          onSurface: Color(0xffffa283),          
+        ),
       ),
       home: Home(),
     );

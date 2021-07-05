@@ -35,11 +35,15 @@ class _RewardPageState extends State<RewardPage> {
             if (myData.tiList[index].getIsComplete())
               GestureDetector(
                 onTap: () => _openTask(myData.tiList[index]),
-                child: ListTile(
-                  title:
-                      Text("Reward: ${myData.tiList[index].getRewardTitle()}"),
-                  subtitle: Text(
-                      "Description: ${myData.tiList[index].getRewardDesc()}"),
+                child: Card(
+                  child: ListTile(
+                    title:
+                        Text("Reward: ${myData.tiList[index].getRewardTitle()}"),
+                    subtitle: Text("""
+Description: ${myData.tiList[index].getTaskDesc()}
+Deadline: ${myData.tiList[index].getDeadline().toString().substring(0, 16)}
+Reward: ${myData.tiList[index].getRewardTitle()}"""),
+                  ),
                 ),
               ),
         ],

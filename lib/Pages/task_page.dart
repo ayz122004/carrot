@@ -58,10 +58,15 @@ class _TaskPageState extends State<TaskPage> {
                 onHorizontalDragUpdate: (details) {
                   myData.completeItem(myData.tiList[index]);
                 },
-                child: ListTile(
-                  title: Text("Task: ${myData.tiList[index].getTaskTitle()}"),
-                  subtitle: Text(
-                      "Description: ${myData.tiList[index].getTaskDesc()}"),
+                child: Card(
+                  child: ListTile(
+                    isThreeLine: true,
+                    title: Text("Task: ${myData.tiList[index].getTaskTitle()}"),
+                    subtitle: Text("""
+Description: ${myData.tiList[index].getTaskDesc()}
+Deadline: ${myData.tiList[index].getDeadline().toString().substring(0, 16)}
+Reward: ${myData.tiList[index].getRewardTitle()}"""),
+                  ),
                 ),
               ),
         ],
@@ -74,6 +79,7 @@ class _TaskPageState extends State<TaskPage> {
       floatingActionButton: FloatingActionButton(
           onPressed: () => _createTask(),
           tooltip: 'Add Item',
+          foregroundColor: Colors.grey.shade900,
           child: const Icon(Icons.add)),
     );
   }
